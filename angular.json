@@ -20,7 +20,9 @@
               "apps/optistructure/src/favicon.ico",
               "apps/optistructure/src/assets"
             ],
-            "styles": ["apps/optistructure/src/styles.css"],
+            "styles": [
+              "apps/optistructure/src/styles.css"
+            ],
             "scripts": [],
             "customWebpackConfig": {
               "path": "webpack.config.js"
@@ -84,7 +86,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/optistructure"],
+          "outputs": [
+            "coverage/apps/optistructure"
+          ],
           "options": {
             "jestConfig": "apps/optistructure/jest.config.js",
             "passWithNoTests": true
@@ -113,14 +117,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/optistructure-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/optistructure-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "a7a6b7b5-dc87-4c1a-ad58-7bd697535849"
   },
   "schematics": {
     "@nrwl/angular": {
