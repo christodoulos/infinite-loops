@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 
-import { OptistructureTopbarComponent } from '@infinite-loops/optistructure-ui';
+import {
+  OptistructureTopbarComponent,
+  OptistructureSidebarComponent,
+} from '@infinite-loops/optistructure-ui';
 
 const routes: Routes = [
   { path: '', component: OptistructureTopbarComponent, outlet: 'topbar' },
+  { path: '', component: OptistructureSidebarComponent, outlet: 'sidebar' },
   {
     path: 'app',
     loadChildren: () =>
