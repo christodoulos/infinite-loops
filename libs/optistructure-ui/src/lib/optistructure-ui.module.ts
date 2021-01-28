@@ -5,6 +5,7 @@ import { OptistructureTopbarComponent } from './topbar/topbar.component';
 import { OptistructureSidebarComponent } from './sidebar/sidebar.component';
 
 import { UiModule } from '@infinite-loops/ui';
+import { OptistructureLandingComponent } from './landing/landing.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,11 @@ import { UiModule } from '@infinite-loops/ui';
     ]),
     UiModule,
   ],
-  declarations: [OptistructureTopbarComponent, OptistructureSidebarComponent],
+  declarations: [
+    OptistructureTopbarComponent,
+    OptistructureSidebarComponent,
+    OptistructureLandingComponent,
+  ],
   // exports: [OptistructureTopbarComponent],
 })
 export class OptistructureUiModule {}

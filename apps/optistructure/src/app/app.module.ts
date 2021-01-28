@@ -10,11 +10,13 @@ import { environment } from '../environments/environment';
 import {
   OptistructureTopbarComponent,
   OptistructureSidebarComponent,
+  OptistructureLandingComponent,
 } from '@infinite-loops/optistructure-ui';
 
 const routes: Routes = [
   { path: '', component: OptistructureTopbarComponent, outlet: 'topbar' },
   { path: '', component: OptistructureSidebarComponent, outlet: 'sidebar' },
+  { path: '', component: OptistructureLandingComponent },
   {
     path: 'app',
     loadChildren: () =>
