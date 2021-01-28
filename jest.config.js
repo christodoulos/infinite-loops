@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/optistructure'],
+  projects: ['<rootDir>/apps/optistructure', '<rootDir>/libs/optistructure-ui'],
 };
