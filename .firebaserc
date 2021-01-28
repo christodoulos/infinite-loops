@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "optistructure-cloud": {
+      "hosting": {
+        "optistructure": [
+          "optistructure-cloud"
+        ]
+      }
+    }
+  }
+}
