@@ -22,6 +22,11 @@ const routes: Routes = [
         (m) => m.OptistructureUiModule
       ),
   },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('@infinite-loops/auth').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({
