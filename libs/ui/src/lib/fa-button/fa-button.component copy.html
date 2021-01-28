@@ -1,0 +1,12 @@
+<button
+  class="border border-transparent rounded-md bg-indigo-500 px-3 py-1 font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+>
+  <fa-icon
+    *ngIf="loading$ | async"
+    [icon]="faSpinner"
+    [spin]="true"
+    class="mr-2"
+  ></fa-icon>
+  <fa-icon *ngIf="!(loading$ | async)" [icon]="faIcon" class="mr-2"></fa-icon>
+  {{ text }}
+</button>

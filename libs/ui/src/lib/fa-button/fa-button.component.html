@@ -1,0 +1,12 @@
+<button
+  class="border border-transparent rounded-md bg-indigo-500 px-3 py-1 font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+>
+  <faicon
+    *ngIf="loading$ | async"
+    [loading$]="loading$"
+    [icon]="icon"
+    class="mr-2"
+  ></faicon>
+  <faicon *ngIf="!(loading$ | async)" [icon]="icon" class="mr-2"></faicon>
+  {{ text }}
+</button>
