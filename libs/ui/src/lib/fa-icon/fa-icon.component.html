@@ -1,0 +1,7 @@
+<fa-icon
+  *ngIf="loading$ | async"
+  [icon]="faSpinner"
+  [spin]="true"
+  class="mr-2"
+></fa-icon>
+<fa-icon *ngIf="!(loading$ | async)" [icon]="fa_icon"></fa-icon>
