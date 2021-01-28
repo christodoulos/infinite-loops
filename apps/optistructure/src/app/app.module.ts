@@ -20,7 +20,7 @@ const routes: Routes = [
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule,
+    RouterModule.forRoot(routes),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
   ],
   providers: [],
