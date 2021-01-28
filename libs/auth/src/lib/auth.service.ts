@@ -14,7 +14,13 @@ import { User } from './state/user.model';
 export class AuthService {
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     console.log('IN AUTH SERVICE');
-    this.afAuth.authState.pipe();
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        console.log(user);
+      } else {
+        console.log('LOGGED OUT');
+      }
+    });
   }
 
   async googleSignin() {
