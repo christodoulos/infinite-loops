@@ -27,6 +27,7 @@
       "implicitDependencies": ["optistructure"]
     },
     "optistructure-ui": { "tags": [] },
-    "ui": { "tags": [] }
+    "ui": { "tags": [] },
+    "auth": { "tags": [] }
   }
 }
