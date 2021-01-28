@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import {
   faUser,
+  faUserPlus,
   faSignInAlt,
   faBuilding,
   faUnlock,
@@ -52,6 +53,10 @@ export class MyFaIconComponent implements OnInit {
         return faTrashAlt;
       case 'faFileDownload':
         return faFileDownload;
+      case 'faSignInAlt':
+        return faSignInAlt;
+        case 'faUserPlus':
+          return faUserPlus
       default:
         break;
     }

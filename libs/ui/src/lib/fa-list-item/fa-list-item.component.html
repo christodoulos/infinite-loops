@@ -1,0 +1,5 @@
+<li class="p-4 text-sm cursor-pointer hover:bg-gray-400">
+  <faicon *ngIf="loading$ | async" [icon]="icon" class="mr-2"></faicon>
+  <faicon *ngIf="!(loading$ | async)" [icon]="icon" class="mr-2"></faicon>
+  {{ text }}
+</li>
