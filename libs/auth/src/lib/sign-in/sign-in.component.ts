@@ -21,7 +21,6 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || null;
-    console.log(this.returnUrl.split('/').slice(1, 3));
   }
 
   async googleSignIn() {
