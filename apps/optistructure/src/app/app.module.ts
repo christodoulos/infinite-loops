@@ -5,7 +5,6 @@ import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
 
 import {
@@ -13,6 +12,7 @@ import {
   OptistructureSidebarComponent,
   OptistructureLandingComponent,
   SidebarUserComponent,
+  TopbarUserComponent,
 } from '@infinite-loops/optistructure-ui';
 
 const routes: Routes = [
@@ -33,10 +33,16 @@ const routes: Routes = [
     outlet: 'sidebar',
   },
   {
+    path: 'user',
+    component: TopbarUserComponent,
+    outlet: 'topbar',
+  },
+  {
     path: 'auth',
     loadChildren: () =>
       import('@infinite-loops/auth').then((m) => m.AuthModule),
   },
+  { path: '**', pathMatch: 'full', component: OptistructureLandingComponent },
 ];
 
 @NgModule({

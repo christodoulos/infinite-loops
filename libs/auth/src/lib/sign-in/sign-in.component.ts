@@ -26,7 +26,13 @@ export class SignInComponent implements OnInit {
   async googleSignIn() {
     await this.authService.googleSignin();
     this.router.navigate([
-      { outlets: { primary: this.navigateTo(), sidebar: ['user'] } },
+      {
+        outlets: {
+          primary: this.navigateTo(),
+          sidebar: ['user'],
+          topbar: ['user'],
+        },
+      },
     ]);
   }
 

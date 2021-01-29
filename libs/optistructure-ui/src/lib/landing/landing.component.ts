@@ -17,7 +17,13 @@ export class OptistructureLandingComponent implements OnInit {
     this.subscription = this.UserQuery.loggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.router.navigate([
-          { outlets: { primary: ['user', 'profile'], sidebar: ['user'] } },
+          {
+            outlets: {
+              primary: ['user', 'profile'],
+              sidebar: ['user'],
+              topbar: ['user'],
+            },
+          },
         ]);
       }
     });

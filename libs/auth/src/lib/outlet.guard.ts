@@ -22,9 +22,11 @@ export class OutletGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // if (state.url.split(':').length == 1 && this.authService.isLoggedIn) {
-    if (!state.url.includes(':') && this.authService.isLoggedIn) {
-      this.router.navigate([{ outlets: { sidebar: ['user'] } }]);
+    if (state.url.split(':').length <= 1 && this.authService.isLoggedIn) {
+      // if (!state.url.includes(':') && this.authService.isLoggedIn) {
+      this.router.navigate([
+        { outlets: { sidebar: ['user'], topbar: ['user'] } },
+      ]);
     }
     return true;
   }
