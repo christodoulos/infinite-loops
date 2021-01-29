@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { UserQuery } from '@infinite-loops/auth';
 
 @Component({
@@ -10,11 +9,7 @@ import { UserQuery } from '@infinite-loops/auth';
 })
 export class OptistructureProfileComponent implements OnInit {
   user$ = this.userQuery.user$;
-  constructor(private route: ActivatedRoute, private userQuery: UserQuery) {}
+  constructor(private userQuery: UserQuery) {}
 
-  ngOnInit(): void {
-    this.route.data.subscribe((data) => {
-      console.log(data); // this is returning an empty object {}
-    });
-  }
+  ngOnInit(): void {}
 }

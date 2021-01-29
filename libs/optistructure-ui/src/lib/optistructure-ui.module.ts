@@ -8,7 +8,7 @@ import { UiModule } from '@infinite-loops/ui';
 import { OptistructureLandingComponent } from './landing/landing.component';
 import { OptistructureProfileComponent } from './profile/profile.component';
 
-import { AuthGuard } from '@infinite-loops/auth';
+import { AuthGuard, OutletGuard } from '@infinite-loops/auth';
 import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
       {
         path: 'profile',
         component: OptistructureProfileComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, OutletGuard],
       },
     ]),
     UiModule,
