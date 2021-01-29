@@ -1,0 +1,45 @@
+<div
+  *ngIf="user$ | async as user; else loading"
+  class="flex flex-col p-5 space-y-4"
+>
+  <h1 class="font-bold text-xl text-gray-700">
+    <faicon [icon]="'faUser'" class="mr-2"></faicon> User Profile
+  </h1>
+  <hr />
+  <div class="flex flex-row">
+    <img
+      class="h-16 w-16 rounded-full"
+      *ngIf="user.photoURL"
+      src="{{ user.photoURL }}"
+      alt=""
+    />
+    <div
+      *ngIf="!user.photoURL"
+      class="h-16 w-16 border-2 rounded-full flex items-center justify-center"
+    >
+      <faicon class="text-4xl" [icon]="'faUser'"></faicon>
+    </div>
+    <div class="ml-2 px-2 text-sm">
+      <table class="table">
+        <tr>
+          <td class="font-semibold">Fullname:</td>
+          <td>{{ user.displayName }}</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">Email:</td>
+          <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+          <td class="font-semibold">User ID:</td>
+          <td>{{ user.uid }}</td>
+        </tr>
+        <!-- <tr>
+          <td class="font-semibold">Last Login:</td>
+          <td>{{ user.lastLoginAt | date: 'medium' }}</td>
+        </tr> -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading> Loading... </ng-template>

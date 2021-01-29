@@ -6,12 +6,21 @@ import { OptistructureSidebarComponent } from './sidebar/sidebar.component';
 
 import { UiModule } from '@infinite-loops/ui';
 import { OptistructureLandingComponent } from './landing/landing.component';
+import { OptistructureProfileComponent } from './profile/profile.component';
+
+import { AuthGuard } from '@infinite-loops/auth';
+import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+      {
+        path: 'profile',
+        component: OptistructureProfileComponent,
+        canActivate: [AuthGuard],
+      },
     ]),
     UiModule,
   ],
@@ -19,6 +28,8 @@ import { OptistructureLandingComponent } from './landing/landing.component';
     OptistructureTopbarComponent,
     OptistructureSidebarComponent,
     OptistructureLandingComponent,
+    OptistructureProfileComponent,
+    SidebarUserComponent,
   ],
   // exports: [OptistructureTopbarComponent],
 })

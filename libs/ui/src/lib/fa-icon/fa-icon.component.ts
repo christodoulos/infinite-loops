@@ -16,6 +16,7 @@ import {
   faCloudDownloadAlt,
   faFileDownload,
   faTrashAlt,
+  faSignOutAlt,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -55,8 +56,10 @@ export class MyFaIconComponent implements OnInit {
         return faFileDownload;
       case 'faSignInAlt':
         return faSignInAlt;
-        case 'faUserPlus':
-          return faUserPlus
+      case 'faUserPlus':
+        return faUserPlus;
+      case 'faSignOutAlt':
+        return faSignOutAlt;
       default:
         break;
     }

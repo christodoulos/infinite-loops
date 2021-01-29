@@ -11,6 +11,7 @@ import {
   OptistructureTopbarComponent,
   OptistructureSidebarComponent,
   OptistructureLandingComponent,
+  SidebarUserComponent,
 } from '@infinite-loops/optistructure-ui';
 
 const routes: Routes = [
@@ -18,11 +19,17 @@ const routes: Routes = [
   { path: '', component: OptistructureSidebarComponent, outlet: 'sidebar' },
   { path: '', component: OptistructureLandingComponent },
   {
-    path: 'app',
+    path: 'user',
+    pathMatch: 'prefix',
     loadChildren: () =>
       import('@infinite-loops/optistructure-ui').then(
         (m) => m.OptistructureUiModule
       ),
+  },
+  {
+    path: 'user',
+    component: SidebarUserComponent,
+    outlet: 'sidebar',
   },
   {
     path: 'auth',

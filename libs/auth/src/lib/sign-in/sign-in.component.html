@@ -63,10 +63,14 @@
   </div>
 
   <div class="flex flex-row items-center space-x-4">
-    <fa-button [text]="'Log In'" [icon]="'faSignInAlt'"></fa-button>
+    <fa-button
+      [loading$]="loading$"
+      [text]="'Log In'"
+      [icon]="'faSignInAlt'"
+    ></fa-button>
     <span>or</span>
     <a
-      (click)="authService.googleSignin()"
+      (click)="googleSignIn()"
       class="cursor-pointer text-indigo-600 hover:text-indigo-500"
     >
       Sign In using Google
