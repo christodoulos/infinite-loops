@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserQuery } from '@infinite-loops/auth';
 import { Subscription } from 'rxjs';
@@ -9,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./landing.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OptistructureLandingComponent implements OnInit {
+export class OptistructureLandingComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   constructor(private UserQuery: UserQuery, private router: Router) {}
 
@@ -19,7 +24,7 @@ export class OptistructureLandingComponent implements OnInit {
         this.router.navigate([
           {
             outlets: {
-              primary: ['user', 'profile'],
+              // primary: ['user', 'profile'],
               sidebar: ['user'],
               topbar: ['user'],
             },
@@ -27,5 +32,9 @@ export class OptistructureLandingComponent implements OnInit {
         ]);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

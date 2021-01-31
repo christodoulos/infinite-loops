@@ -11,16 +11,29 @@ import { OptistructureLandingComponent } from './landing/landing.component';
 import { OptistructureProfileComponent } from './profile/profile.component';
 import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 import { TopbarUserComponent } from './topbar-user/topbar-user.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([
-      /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+      // { path: '', pathMatch: 'full', component: OptistructureProfileComponent },
+      {
+        path: '',
+        pathMatch: 'full',
+        component: SidebarUserComponent,
+        outlet: 'sidebar',
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        component: TopbarUserComponent,
+        outlet: 'topbar',
+      },
       {
         path: 'profile',
         component: OptistructureProfileComponent,
-        canActivate: [AuthGuard, OutletGuard],
+        canActivate: [AuthGuard],
       },
     ]),
     UiModule,
@@ -32,6 +45,7 @@ import { TopbarUserComponent } from './topbar-user/topbar-user.component';
     OptistructureProfileComponent,
     SidebarUserComponent,
     TopbarUserComponent,
+    NotFoundComponent,
   ],
   // exports: [OptistructureTopbarComponent],
 })

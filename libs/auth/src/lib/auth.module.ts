@@ -13,6 +13,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 
     RouterModule.forChild([
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+
       { path: 'sign-in', component: SignInComponent },
     ]),
   ],

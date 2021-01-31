@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'optistructure-ui',
-  preset: '../../jest.preset.js',
+  displayName: 'optistructure-optistructure-ui',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/optistructure-ui',
+  coverageDirectory: '../../../coverage/libs/optistructure/optistructure-common',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

@@ -23,6 +23,7 @@ export class AuthService {
     private afs: AngularFirestore
   ) {
     console.log('IN AUTH SERVICE');
+    // this.signOut();
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         const { uid, email, displayName, photoURL, emailVerified } = user;

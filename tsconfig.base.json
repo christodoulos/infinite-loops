@@ -10,17 +10,27 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@infinite-loops/optistructure-ui": [
-        "libs/optistructure-ui/src/index.ts"
+      "@infinite-loops/ui": [
+        "libs/ui/src/index.ts"
       ],
-      "@infinite-loops/ui": ["libs/ui/src/index.ts"],
-      "@infinite-loops/auth": ["libs/auth/src/index.ts"]
+      "@infinite-loops/auth": [
+        "libs/auth/src/index.ts"
+      ],
+      "@infinite-loops/optistructure/optistructure-common": [
+        "libs/optistructure/optistructure-common/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

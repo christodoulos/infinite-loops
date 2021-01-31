@@ -1,57 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
-
-import {
-  OptistructureTopbarComponent,
-  OptistructureSidebarComponent,
-  OptistructureLandingComponent,
-  SidebarUserComponent,
-  TopbarUserComponent,
-} from '@infinite-loops/optistructure-ui';
-
-const routes: Routes = [
-  { path: '', component: OptistructureTopbarComponent, outlet: 'topbar' },
-  { path: '', component: OptistructureSidebarComponent, outlet: 'sidebar' },
-  { path: '', component: OptistructureLandingComponent },
-  {
-    path: 'user',
-    pathMatch: 'prefix',
-    loadChildren: () =>
-      import('@infinite-loops/optistructure-ui').then(
-        (m) => m.OptistructureUiModule
-      ),
-  },
-  {
-    path: 'user',
-    component: SidebarUserComponent,
-    outlet: 'sidebar',
-  },
-  {
-    path: 'user',
-    component: TopbarUserComponent,
-    outlet: 'topbar',
-  },
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('@infinite-loops/auth').then((m) => m.AuthModule),
-  },
-  { path: '**', pathMatch: 'full', component: OptistructureLandingComponent },
-];
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebase),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

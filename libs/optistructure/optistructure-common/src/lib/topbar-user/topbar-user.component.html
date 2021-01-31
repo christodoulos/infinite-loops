@@ -1,0 +1,24 @@
+<div class="flex flex-row items-center justify-between">
+  <div class="flex flex-row text-xl m-2">
+    <faicon
+      routerLink="/"
+      [icon]="'faBuilding'"
+      class="mr-2 cursor-pointer focus:outline-none"
+    ></faicon>
+    <h1>Optistructure Cloud</h1>
+  </div>
+  <div class="mr-2" *ngIf="user$ | async as user">
+    <img
+      class="h-8 w-8 rounded-full"
+      *ngIf="user.photoURL"
+      src="{{ user.photoURL }}"
+      alt=""
+    />
+    <div
+      *ngIf="!user.photoURL"
+      class="h-8 w-8 border-2 rounded-full flex items-center justify-center"
+    >
+      <faicon class="text-sm" [icon]="'faUser'"></faicon>
+    </div>
+  </div>
+</div>
