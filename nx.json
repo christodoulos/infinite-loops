@@ -19,12 +19,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NDYzYmI5NjQtYzRlMy00MjQ3LWExNjQtM2MzZjVlNzQ1MTNmfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -36,17 +31,12 @@
     },
     "optistructure-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "optistructure"
-      ]
+      "implicitDependencies": ["optistructure"]
     },
     "ui": {
       "tags": []
     },
     "auth": {
-      "tags": []
-    },
-    "optistructure-optistructure-common": {
       "tags": []
     }
   }

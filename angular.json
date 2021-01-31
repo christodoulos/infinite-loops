@@ -20,9 +20,7 @@
               "apps/optistructure/src/favicon.ico",
               "apps/optistructure/src/assets"
             ],
-            "styles": [
-              "apps/optistructure/src/styles.css"
-            ],
+            "styles": ["apps/optistructure/src/styles.css"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "webpack.config.js"
@@ -86,9 +84,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/optistructure"
-          ],
+          "outputs": ["coverage/apps/optistructure"],
           "options": {
             "jestConfig": "apps/optistructure/jest.config.js",
             "passWithNoTests": true
@@ -121,9 +117,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/optistructure-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/optistructure-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -149,17 +143,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/src/**/*.ts",
-              "libs/ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui"
-          ],
+          "outputs": ["coverage/libs/ui"],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -196,38 +185,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth"
-          ],
+          "outputs": ["coverage/libs/auth"],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "optistructure-optistructure-common": {
-      "projectType": "library",
-      "root": "libs/optistructure/optistructure-common",
-      "sourceRoot": "libs/optistructure/optistructure-common/src",
-      "prefix": "infinite-loops",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/optistructure/optistructure-common/src/**/*.ts",
-              "libs/optistructure/optistructure-common/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/optistructure/optistructure-common"
-          ],
-          "options": {
-            "jestConfig": "libs/optistructure/optistructure-common/jest.config.js",
             "passWithNoTests": true
           }
         }
