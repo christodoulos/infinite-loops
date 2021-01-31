@@ -8,7 +8,7 @@ import { AuthService } from '@infinite-loops/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarUserComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}
 }
