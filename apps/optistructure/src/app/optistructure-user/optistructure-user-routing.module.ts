@@ -9,6 +9,7 @@ import { AuthGuard } from '@infinite-loops/auth';
 const routes: Routes = [
   { path: '', component: TopbarUserComponent, outlet: 'topbar' },
   { path: '', component: SidebarUserComponent, outlet: 'sidebar' },
+  { path: '', redirectTo: '/user/profile' },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/user/profile' },
 ];

@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   user$ = this.userQuery.user$;
+  loading$ = this.userQuery.loading$;
   private subscription: Subscription;
   constructor(
     private authService: AuthService,

@@ -1,1 +1,4 @@
-<form-sign-in (googleSignIn)="doGoogleSignIn()"></form-sign-in>
+<form-sign-in
+  (googleSignIn)="doGoogleSignIn()"
+  [loading$]="loading$"
+></form-sign-in>
