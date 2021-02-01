@@ -36,6 +36,18 @@ export class AuthService {
     });
   }
 
+  // Forgot password
+  async ForgotPassword(passwordResetEmail: string) {
+    this.userService.setUserLoading(true);
+    try {
+      await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
+      window.alert('Password reset email sent, check your inbox.');
+    } catch (error) {
+      window.alert(error);
+    }
+    this.userService.setUserLoading(false);
+  }
+
   async googleSignin() {
     this.userService.setUserLoading(true);
     const provider = new firebase.auth.GoogleAuthProvider(); // https://bit.ly/3p9dABj

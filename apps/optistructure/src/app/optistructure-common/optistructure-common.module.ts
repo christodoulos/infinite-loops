@@ -8,6 +8,7 @@ import { LandingComponent } from './landing/landing.component';
 import { TopbarCommonComponent } from './topbar-common/topbar-common.component';
 import { SidebarCommonComponent } from './sidebar-common/sidebar-common.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     TopbarCommonComponent,
     SidebarCommonComponent,
     SignInComponent,
+    ForgotPasswordComponent,
   ],
   imports: [CommonModule, UiModule, OptistructureCommonRoutingModule],
 })
