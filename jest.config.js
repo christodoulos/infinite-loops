@@ -6,3 +6,4 @@ module.exports = {
     '<rootDir>/libs/auth',
   ],
 };
+,"<rootDir>/libs/notifications"

@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@infinite-loops/ui": ["libs/ui/src/index.ts"],
-      "@infinite-loops/auth": ["libs/auth/src/index.ts"]
+      "@infinite-loops/auth": ["libs/auth/src/index.ts"],
+      "@infinite-loops-notifications": ["libs/notifications/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
