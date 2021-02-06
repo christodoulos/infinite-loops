@@ -11,7 +11,7 @@ import { User } from './state/user.model';
 import { UserService } from './state/user.service';
 import { Router } from '@angular/router';
 
-import { AlertService } from '@infinite-loops/alert';
+import { AlertService } from '@infinite-loops/notifications';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,7 @@ export class AuthService {
     // this.signOut();
     this.afAuth.authState.subscribe((user) => {
       if (user) {
+        console.log('LOGGED IN');
         const { uid, email, displayName, photoURL, emailVerified } = user;
         const data = { uid, email, displayName, photoURL, emailVerified };
         this.userService.updateUser(data);
@@ -46,7 +47,7 @@ export class AuthService {
       await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
       this.alertService.success('Password reset email sent, check your inbox.');
     } catch (error) {
-      this.alertService.error(error.message);
+      this.alertService.error(error.message, { autoclose: true });
     }
     this.userService.setUserLoading(false);
   }

@@ -4,6 +4,6 @@ module.exports = {
     '<rootDir>/libs/optistructure/optistructure-ui',
     '<rootDir>/libs/ui',
     '<rootDir>/libs/auth',
-    '<rootDir>/libs/alert'
+    <rootDir>/libs/notifications
   ],
 };

@@ -20,7 +20,9 @@
               "apps/optistructure/src/favicon.ico",
               "apps/optistructure/src/assets"
             ],
-            "styles": ["apps/optistructure/src/styles.css"],
+            "styles": [
+              "apps/optistructure/src/styles.css"
+            ],
             "scripts": [],
             "customWebpackConfig": {
               "path": "webpack.config.js"
@@ -84,7 +86,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/optistructure"],
+          "outputs": [
+            "coverage/apps/optistructure"
+          ],
           "options": {
             "jestConfig": "apps/optistructure/jest.config.js",
             "passWithNoTests": true
@@ -117,7 +121,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/optistructure-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/optistructure-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -143,12 +149,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -185,7 +196,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth"],
+          "outputs": [
+            "coverage/libs/auth"
+          ],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
@@ -193,21 +206,21 @@
         }
       }
     },
-    "alert": {
+    "notifications": {
       "projectType": "library",
-      "root": "libs/alert",
-      "sourceRoot": "libs/alert/src",
+      "root": "libs/notifications",
+      "sourceRoot": "libs/notifications/src",
       "prefix": "infinite-loops",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/alert/tsconfig.lib.json",
-            "project": "libs/alert/ng-package.json"
+            "tsConfig": "libs/notifications/tsconfig.lib.json",
+            "project": "libs/notifications/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/alert/tsconfig.lib.prod.json"
+              "tsConfig": "libs/notifications/tsconfig.lib.prod.json"
             }
           }
         },
@@ -215,16 +228,18 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/alert/src/**/*.ts",
-              "libs/alert/src/**/*.html"
+              "libs/notifications/src/**/*.ts",
+              "libs/notifications/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/alert"],
+          "outputs": [
+            "coverage/libs/notifications"
+          ],
           "options": {
-            "jestConfig": "libs/alert/jest.config.js",
+            "jestConfig": "libs/notifications/jest.config.js",
             "passWithNoTests": true
           }
         }

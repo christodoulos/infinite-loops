@@ -31,8 +31,15 @@ export class AlertComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('IN ALERT COMPONENT');
     this.alertSubscription = this.alertQuery.selectAll().subscribe((alerts) => {
-      console.log(alerts);
+      alerts.forEach((alert) => {
+        if (alert.autoclose) {
+          setTimeout(() => {
+            this.alertService.remove(alert.id);
+          }, 5000);
+        }
+      });
     });
 
     this.routeSubscription = this.router.events.subscribe((event) => {
