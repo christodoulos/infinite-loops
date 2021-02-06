@@ -1,14 +1,9 @@
 {
   "npmScope": "infinite-loops",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -26,18 +21,13 @@
     }
   },
   "projects": {
-    "optistructure": {
-      "tags": []
-    },
+    "optistructure": { "tags": [] },
     "optistructure-e2e": {
       "tags": [],
       "implicitDependencies": ["optistructure"]
     },
-    "ui": {
-      "tags": []
-    },
-    "auth": {
-      "tags": []
-    }
+    "ui": { "tags": [] },
+    "auth": { "tags": [] },
+    "alert": { "tags": [] }
   }
 }

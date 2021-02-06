@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app.routing';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 
+import { AlertModule } from '@infinite-loops/alert';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,6 +16,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AppRoutingModule,
+    AlertModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

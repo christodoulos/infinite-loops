@@ -192,6 +192,43 @@
           }
         }
       }
+    },
+    "alert": {
+      "projectType": "library",
+      "root": "libs/alert",
+      "sourceRoot": "libs/alert/src",
+      "prefix": "infinite-loops",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/alert/tsconfig.lib.json",
+            "project": "libs/alert/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/alert/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/alert/src/**/*.ts",
+              "libs/alert/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/alert"],
+          "options": {
+            "jestConfig": "libs/alert/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

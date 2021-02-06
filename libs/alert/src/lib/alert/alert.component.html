@@ -1,0 +1,7 @@
+<ng-container *ngFor="let alert of alerts$ | async">
+  <ui-alert
+    [message]="alert.message"
+    [type]="alert.type"
+    (dismiss)="dismiss(alert.id)"
+  ></ui-alert>
+</ng-container>

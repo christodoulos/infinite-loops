@@ -8,6 +8,7 @@ import { FaListItemComponent } from './fa-list-item/fa-list-item.component copy'
 import { FaButtonComponent } from './fa-button/fa-button.component copy';
 import { FormSignInComponent } from './form-sign-in/form-sign-in.component';
 import { FormForgotPasswordComponent } from './form-forgot-password/form-forgot-password.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, FontAwesomeModule],
@@ -17,6 +18,7 @@ import { FormForgotPasswordComponent } from './form-forgot-password/form-forgot-
     FaButtonComponent,
     FormSignInComponent,
     FormForgotPasswordComponent,
+    AlertComponent,
   ],
   exports: [
     MyFaIconComponent,
@@ -24,6 +26,7 @@ import { FormForgotPasswordComponent } from './form-forgot-password/form-forgot-
     FaButtonComponent,
     FormSignInComponent,
     FormForgotPasswordComponent,
+    AlertComponent,
   ],
 })
 export class UiModule {}

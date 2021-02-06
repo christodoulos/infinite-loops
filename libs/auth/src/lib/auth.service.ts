@@ -11,6 +11,8 @@ import { User } from './state/user.model';
 import { UserService } from './state/user.service';
 import { Router } from '@angular/router';
 
+import { AlertService } from '@infinite-loops/alert';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +22,8 @@ export class AuthService {
     private router: Router,
     private userService: UserService,
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private alertService: AlertService
   ) {
     console.log('IN AUTH SERVICE');
     // this.signOut();
@@ -41,9 +44,9 @@ export class AuthService {
     this.userService.setUserLoading(true);
     try {
       await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
-      window.alert('Password reset email sent, check your inbox.');
+      this.alertService.success('Password reset email sent, check your inbox.');
     } catch (error) {
-      window.alert(error);
+      this.alertService.error(error.message);
     }
     this.userService.setUserLoading(false);
   }
