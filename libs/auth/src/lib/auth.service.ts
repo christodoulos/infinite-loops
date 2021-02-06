@@ -40,6 +40,54 @@ export class AuthService {
     });
   }
 
+  // Sign in with email/password
+  async SignIn(email: string, password: string) {
+    this.userService.setUserLoading(true);
+    try {
+      const result = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      if (!result.user.emailVerified)
+        alert(
+          'You should verify your email first! Check your mailbox: ' +
+            result.user.email
+        );
+      this.updateUserData(result.user);
+      // this.ngZone.run(() => {
+      //   this.router.navigateByUrl(returnUrl);
+      // });
+      // console.log('\twill navigate to ', returnUrl);
+      // if (returnUrl) this.router.navigate([returnUrl]);
+      // else this.router.navigate(['profile']);
+    } catch (error) {
+      this.userService.setUserLoading(false);
+      window.alert(error.message);
+    }
+  }
+
+  // Sign up with email/password
+  SignUp(email: string, password: string) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        /* Call the SendVerificationMail() function when new user sign 
+        up and returns promise */
+        this.SendVerificationMail();
+        this.updateUserData(result.user);
+      })
+      .catch((error) => {
+        this.alertService.error(error.message);
+      });
+  }
+
+  // Send email verfificaiton when new user sign up
+  async SendVerificationMail() {
+    return (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+      this.router.navigate(['verify-email']);
+    });
+  }
+
   // Forgot password
   async ForgotPassword(passwordResetEmail: string) {
     this.userService.setUserLoading(true);

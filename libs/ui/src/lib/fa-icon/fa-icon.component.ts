@@ -19,6 +19,7 @@ import {
   faSignOutAlt,
   faTrash,
   faTimes,
+  faHandshake,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { Observable } from 'rxjs';
@@ -63,6 +64,10 @@ export class MyFaIconComponent implements OnInit {
         return faSignOutAlt;
       case 'faTimes':
         return faTimes;
+      case 'faTrash':
+        return faTrash;
+      case 'faHandshake':
+        return faHandshake;
       default:
         break;
     }

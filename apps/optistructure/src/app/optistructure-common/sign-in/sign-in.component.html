@@ -1,4 +1,5 @@
 <form-sign-in
   (googleSignIn)="doGoogleSignIn()"
+  (signIn)="doSignIn($event)"
   [loading$]="loading$"
 ></form-sign-in>

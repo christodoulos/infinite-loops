@@ -1,6 +1,6 @@
 <div class="p-5 space-y-8">
   <h1 class="font-bold text-xl text-gray-700">
-    <faicon [icon]="'faSignInAlt'" class="mr-2"></faicon>Sign In
+    <faicon [icon]="'faUserPlus'" class="mr-2"></faicon>Sign Up
   </h1>
 
   <div>
@@ -21,7 +21,6 @@
         class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
       />
     </div>
-
     <div>
       <label
         for="password"
@@ -39,42 +38,21 @@
     </div>
   </div>
 
-  <div class="flex items-center justify-between">
-    <div class="flex items-center">
-      <input
-        id="remember_me"
-        name="remember_me"
-        type="checkbox"
-        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-      />
-      <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-        Remember me
-      </label>
-    </div>
-
-    <div class="text-sm">
-      <span
-        routerLink="/forgot-password"
-        class="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
-      >
-        Forgot your password?
-      </span>
-    </div>
+  <div>
+    <fa-button
+      (click)="emitSignUp(userEmail.value, userPassword.value)"
+      [loading$]="loading$"
+      [text]="'Sign Up'"
+      [icon]="'faUserPlus'"
+    ></fa-button>
   </div>
 
-  <div class="flex flex-row items-center space-x-4">
+  <div class="mt-6 border-t-2 pt-4 text-sm">
+    <span class="mr-2">Already have an account? </span>
     <fa-button
-      (click)="emitSignIn(userEmail.value, userPassword.value)"
-      [loading$]="loading$"
       [text]="'Log In'"
       [icon]="'faSignInAlt'"
+      routerLink="/sign-in"
     ></fa-button>
-    <span>or</span>
-    <a
-      (click)="emitGoogleSignIn()"
-      class="cursor-pointer text-indigo-600 hover:text-indigo-500"
-    >
-      Sign In using Google
-    </a>
   </div>
 </div>

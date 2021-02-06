@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-export interface Credentials {
+interface Credentials {
   username: string;
   password: string;
 }
@@ -29,5 +29,9 @@ export class FormSignInComponent implements OnInit {
 
   emitGoogleSignIn() {
     this.googleSignIn.emit(true);
+  }
+
+  emitSignIn(username: string, password: string) {
+    this.signIn.emit({ username, password });
   }
 }

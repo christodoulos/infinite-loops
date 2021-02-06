@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, UserQuery } from '@infinite-loops/auth';
+import { Credentials, AuthService, UserQuery } from '@infinite-loops/auth';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -34,5 +34,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   doGoogleSignIn() {
     this.authService.googleSignin();
+  }
+
+  doSignIn(credentials: Credentials) {
+    this.authService.SignIn(credentials.username, credentials.password);
   }
 }

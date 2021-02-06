@@ -9,6 +9,8 @@ import { TopbarCommonComponent } from './topbar-common/topbar-common.component';
 import { SidebarCommonComponent } from './sidebar-common/sidebar-common.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     SidebarCommonComponent,
     SignInComponent,
     ForgotPasswordComponent,
+    SignUpComponent,
+    VerifyEmailComponent,
   ],
   imports: [CommonModule, UiModule, OptistructureCommonRoutingModule],
 })
