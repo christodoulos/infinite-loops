@@ -49,20 +49,14 @@ export class AuthService {
         password
       );
       if (!result.user.emailVerified)
-        alert(
+        this.alertService.error(
           'You should verify your email first! Check your mailbox: ' +
             result.user.email
         );
       this.updateUserData(result.user);
-      // this.ngZone.run(() => {
-      //   this.router.navigateByUrl(returnUrl);
-      // });
-      // console.log('\twill navigate to ', returnUrl);
-      // if (returnUrl) this.router.navigate([returnUrl]);
-      // else this.router.navigate(['profile']);
     } catch (error) {
       this.userService.setUserLoading(false);
-      window.alert(error.message);
+      this.alertService.error(error.message, { autoclose: true });
     }
   }
 
