@@ -61,23 +61,29 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificationMail() function when new user sign 
-        up and returns promise */
-        this.SendVerificationMail();
-        this.updateUserData(result.user);
-      })
-      .catch((error) => {
-        this.alertService.error(error.message);
+  async SignUp(email: string, password: string) {
+    this.userService.setUserLoading(true);
+    try {
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+        this.alertService.success(
+          `We have sent a confirmation email to ${result.user.email}. 
+          Please check your email and click on the link to verify your email address.`
+        );
       });
+      this.updateUserData(result.user);
+    } catch (error) {
+      this.alertService.error(error.message);
+    }
+    this.userService.setUserLoading(false);
   }
 
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
-    return (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+    (await this.afAuth.currentUser).sendEmailVerification().then(() => {
       this.router.navigate(['verify-email']);
     });
   }
@@ -97,9 +103,8 @@ export class AuthService {
   async googleSignin() {
     this.userService.setUserLoading(true);
     const provider = new firebase.auth.GoogleAuthProvider(); // https://bit.ly/3p9dABj
-    const credential = await this.afAuth.signInWithPopup(provider);
+    await this.afAuth.signInWithPopup(provider);
     this.userService.setUserLoading(false);
-    return this.updateUserData(credential.user);
   }
 
   async signOut() {
