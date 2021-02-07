@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Credentials, AuthService, UserQuery } from '@infinite-loops/auth';
-import { Subscription } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+import { Credentials, AuthService, UserQuery } from '@infinite-loops/auth';
+
+@UntilDestroy()
 @Component({
   selector: 'infinite-loops-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
 })
-export class SignInComponent implements OnInit, OnDestroy {
-  user$ = this.userQuery.user$;
+export class SignInComponent implements OnInit {
+  loggedIn$ = this.userQuery.loggedIn$;
   loading$ = this.userQuery.loading$;
-  private subscription: Subscription;
   constructor(
     private authService: AuthService,
     private userQuery: UserQuery,
@@ -19,17 +20,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.user$.subscribe((user) => {
-      if (user) {
+    this.loggedIn$.pipe(untilDestroyed(this)).subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
         this.router.navigate(['user', 'profile']);
-      } else {
-        this.router.navigate(['']);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   doGoogleSignIn() {
