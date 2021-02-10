@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { CommonGuard } from './common.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LandingComponent } from './landing/landing.component';
 import { SidebarCommonComponent } from './sidebar-common/sidebar-common.component';
@@ -24,11 +26,19 @@ const routes: Routes = [
     component: SidebarCommonComponent,
     outlet: 'sidebar',
   },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '**', component: LandingComponent },
+  { path: 'sign-in', component: SignInComponent, canActivate: [CommonGuard] },
+  { path: 'sign-up', component: SignUpComponent, canActivate: [CommonGuard] },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    canActivate: [CommonGuard],
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [CommonGuard],
+  },
+  { path: '**', component: LandingComponent, canActivate: [CommonGuard] },
 ];
 
 @NgModule({
