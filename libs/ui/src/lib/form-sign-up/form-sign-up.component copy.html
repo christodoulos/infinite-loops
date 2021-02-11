@@ -1,0 +1,58 @@
+<div class="p-5 space-y-8">
+  <h1 class="font-bold text-xl text-gray-700">
+    <faicon [icon]="'faUserPlus'" class="mr-2"></faicon>Sign Up
+  </h1>
+
+  <div>
+    <div>
+      <label
+        for="email_address"
+        class="block w-full text-sm font-medium text-gray-700"
+      >
+        Email address:</label
+      >
+      <input
+        #userEmail
+        required
+        type="text"
+        name="email_address"
+        id="email_address"
+        autocomplete="email"
+        class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+    <div>
+      <label
+        for="password"
+        class="mt-2 block w-full text-sm font-medium text-gray-700"
+        >Password:</label
+      >
+      <input
+        #userPassword
+        required
+        type="password"
+        name="password"
+        id="password"
+        class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+  </div>
+
+  <div>
+    <fa-button
+      (click)="emitSignUp(userEmail.value, userPassword.value)"
+      [loading$]="loading$"
+      [text]="'Sign Up'"
+      [icon]="'faUserPlus'"
+    ></fa-button>
+  </div>
+
+  <div class="mt-6 border-t-2 pt-4 text-sm">
+    <span class="mr-2">Already have an account? </span>
+    <fa-button
+      [text]="'Log In'"
+      [icon]="'faSignInAlt'"
+      routerLink="/sign-in"
+    ></fa-button>
+  </div>
+</div>

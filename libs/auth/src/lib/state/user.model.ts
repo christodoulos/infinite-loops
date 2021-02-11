@@ -1,5 +1,7 @@
 export interface User {
   uid: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   photoURL?: string;
   displayName?: string;
@@ -10,6 +12,8 @@ export interface User {
 export const createInitialUser = () =>
   ({
     uid: '',
+    firstName: '',
+    lastName: '',
     email: '',
     photoURL: '',
     displayName: '',
