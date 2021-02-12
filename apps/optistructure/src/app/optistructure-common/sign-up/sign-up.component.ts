@@ -17,13 +17,14 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  doSignUp(data: User | boolean) {
-    if (!data) {
+  doSignUp(user: User) {
+    if (!user) {
       this.alertService.error('There are errors. We cannot sign you up!', {
         autoclose: true,
       });
     } else {
-      console.log(data);
+      console.log(user);
+      this.authService.SignUp(user);
       // this.authService.SignUp(credentials.username, credentials.password);
     }
   }

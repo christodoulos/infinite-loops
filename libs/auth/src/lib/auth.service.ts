@@ -53,7 +53,18 @@ export class AuthService {
           'You should verify your email first! Check your mailbox: ' +
             result.user.email
         );
-      this.updateUserData(result.user);
+      console.log(result.user);
+      const lalakis = {
+        uid: result.user.uid,
+        email: result.user.email,
+        firstName: '',
+        lastName: '',
+        linkedinURL: '',
+        photoURL: result.user.photoURL,
+        displayName: result.user.displayName,
+        emailVerified: result.user.emailVerified,
+      };
+      this.updateUserData(lalakis);
     } catch (error) {
       this.userService.setUserLoading(false);
       this.alertService.error(error.message, { autoclose: true });
@@ -61,12 +72,13 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  async SignUp(email: string, password: string) {
+  // async SignUp(email: string, password: string) {
+  async SignUp(user: any) {
     this.userService.setUserLoading(true);
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
-        email,
-        password
+        user.email,
+        user.password
       );
       (await this.afAuth.currentUser).sendEmailVerification().then(() => {
         this.alertService.success(
@@ -74,7 +86,7 @@ export class AuthService {
           Please check your email and click on the link to verify your email address.`
         );
       });
-      this.updateUserData(result.user);
+      this.updateUserData({ ...result.user, ...user });
     } catch (error) {
       this.alertService.error(error.message);
     }
@@ -113,8 +125,26 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  private updateUserData({ uid, email, displayName, photoURL, emailVerified }) {
-    const data = { uid, email, displayName, photoURL, emailVerified };
+  private updateUserData({
+    uid,
+    firstName,
+    lastName,
+    email,
+    displayName,
+    photoURL,
+    linkedinURL,
+    emailVerified,
+  }) {
+    const data = {
+      uid,
+      firstName,
+      lastName,
+      email,
+      displayName,
+      photoURL,
+      linkedinURL,
+      emailVerified,
+    };
     this.userService.updateUser({ ...data });
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${uid}`
