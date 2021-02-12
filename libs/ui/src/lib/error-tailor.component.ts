@@ -3,7 +3,7 @@ import { DefaultControlErrorComponent } from '@ngneat/error-tailor';
 // Custom error component that will replace the standard DefaultControlErrorComponent.
 @Component({
   template: `
-    <div class="table-row text-xs font-semibold text-red-600">
+    <div class="text-xs font-semibold text-red-600">
       {{ errorText }}
     </div>
   `,
@@ -14,11 +14,10 @@ export function anchorErrorComponent(
   hostElement: Element,
   errorElement: Element
 ) {
+  console.log('IN anchorErrorComponent');
   hostElement.parentElement.insertAdjacentElement('afterend', errorElement);
   return () => {
-    let errorNode = hostElement.parentElement.querySelector(
-      'custom-control-error'
-    );
+    let errorNode = hostElement.parentElement.querySelector('skata');
     if (errorNode) {
       errorNode.remove();
     }

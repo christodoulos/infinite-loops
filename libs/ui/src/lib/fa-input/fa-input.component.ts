@@ -24,14 +24,12 @@ import { FormControl } from '@ngneat/reactive-forms';
 export class FaInputComponent implements ControlValueAccessor {
   @Input() icon: string;
   @Input() label: string;
+  @Input() type = 'text';
+  @Input() required = false;
   @ViewChild(FormControlDirective, { static: true })
   formControlDirective: FormControlDirective;
-
-  @Input()
-  formControl: FormControl;
-
-  @Input()
-  formControlName: string;
+  @Input() formControl: FormControl;
+  @Input() formControlName: string;
 
   constructor(private controlContainer: ControlContainer) {}
 

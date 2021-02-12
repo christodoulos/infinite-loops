@@ -3,12 +3,16 @@
     <faicon [icon]="'faUserPlus'" class="mr-2"></faicon>Sign Up
   </h1>
 
-  <div>
-    <form [formGroup]="profileForm" errorTailor>
+  <form [formGroup]="profileForm" #signupform errorTailor>
+    <div class="space-y-2">
+      <p>
+        Please fill all the <strong>required<sup>*</sup></strong> fields:
+      </p>
       <div class="grid grid-cols-2 gap-2">
         <!-- First Name and Last Name -->
         <div>
           <fa-input
+            [required]="true"
             [icon]="'faUser'"
             [label]="'First Name'"
             formControlName="firstName"
@@ -16,61 +20,62 @@
         </div>
         <div>
           <fa-input
+            [required]="true"
             [icon]="'faUser'"
             [label]="'Last Name'"
             formControlName="lastName"
           ></fa-input>
         </div>
+      </div>
 
-        <!-- Email address -->
-        <div class="col-span-2">
-          <fa-input
-            [icon]="'faEnvelope'"
-            [label]="'Email address'"
-            formControlName="email"
-          ></fa-input>
-        </div>
+      <!-- Email address -->
+      <div>
+        <fa-input
+          [required]="true"
+          [icon]="'faEnvelope'"
+          [label]="'Email address'"
+          formControlName="email"
+        ></fa-input>
+      </div>
 
-        <!-- Linkedin Profile -->
-        <div class="col-span-2">
-          <fa-input
-            [icon]="'faLinkedin'"
-            [label]="'LinkedIn Profile'"
-            formControlName="linkedinURL"
-          ></fa-input>
-        </div>
+      <!-- Linkedin Profile -->
+      <div>
+        <fa-input
+          [icon]="'faLinkedin'"
+          [label]="'LinkedIn Profile'"
+          formControlName="linkedinURL"
+        ></fa-input>
+      </div>
 
-        <!-- Password and Confirm Password -->
+      <!-- Password and Confirm Password -->
+      <div class="grid grid-cols-2 gap-2">
         <div>
           <fa-input
+            [required]="true"
             [icon]="'faKey'"
             [label]="'Password'"
+            [type]="'password'"
             formControlName="password"
           ></fa-input>
         </div>
         <div>
           <fa-input
+            [required]="true"
             [icon]="'faKey'"
             [label]="'Confirm Password'"
+            [type]="'password'"
             formControlName="confirmPassword"
           ></fa-input>
         </div>
       </div>
-    </form>
-  </div>
-
-  <!-- <div>
-    <fa-button
-      (click)="emitSignUp(userEmail.value, userPassword.value)"
-      [loading$]="loading$"
-      [text]="'Sign Up'"
-      [icon]="'faUserPlus'"
-    ></fa-button>
-  </div> -->
+    </div>
+  </form>
 
   <div>
     <fa-button
-      (click)="lala()"
+      [disabled]="profileForm.invalid"
+      (click)="profileForm.valid && emitSignUp()"
+      [loading$]="loading$"
       [text]="'Sign Up'"
       [icon]="'faUserPlus'"
     ></fa-button>

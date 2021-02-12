@@ -5,15 +5,11 @@ import {
   EventEmitter,
   Input,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { Validators } from '@angular/forms';
-
-interface Credentials {
-  username: string;
-  password: string;
-}
 
 interface Profile {
   firstName: string;
@@ -25,7 +21,7 @@ interface Profile {
   confirmPassword: string;
 }
 
-// custom validator to check that two fields match
+// custom validator to check that two fields match https://bit.ly/3d506n3
 export function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
@@ -52,8 +48,11 @@ export function MustMatch(controlName: string, matchingControlName: string) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSignUpComponent implements OnInit {
+  @ViewChild('signupform') submitFormElement;
   @Input() loading$: Observable<boolean>;
-  @Output() signUp: EventEmitter<Credentials> = new EventEmitter<Credentials>();
+  @Output() signUp: EventEmitter<Partial<Profile> | boolean> = new EventEmitter<
+    Partial<Profile> | boolean
+  >();
   profileForm: FormGroup;
   constructor() {}
 
@@ -70,15 +69,13 @@ export class FormSignUpComponent implements OnInit {
       },
       { validators: [MustMatch('password', 'confirmPassword')] }
     );
-
-    this.profileForm.controls;
   }
 
-  emitSignUp(username: string, password: string) {
-    this.signUp.emit({ username, password });
-  }
-
-  lala() {
-    console.log(this.profileForm.value);
+  emitSignUp() {
+    if (this.profileForm.valid) {
+      this.signUp.emit(this.profileForm.value);
+    } else {
+      this.signUp.emit(false);
+    }
   }
 }

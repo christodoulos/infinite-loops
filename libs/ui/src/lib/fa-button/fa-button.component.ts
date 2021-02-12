@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class FaButtonComponent implements OnInit {
   @Input() loading$: Observable<boolean>;
+  @Input() disabled = false;
   @Input() text: string;
   @Input() icon: string;
 

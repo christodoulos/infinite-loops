@@ -1,8 +1,9 @@
 export interface User {
   uid: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  linkedinURL?: string;
   photoURL?: string;
   displayName?: string;
   emailVerified: boolean;
@@ -15,6 +16,7 @@ export const createInitialUser = () =>
     firstName: '',
     lastName: '',
     email: '',
+    linkedinURL: '',
     photoURL: '',
     displayName: '',
     emailVerified: false,
