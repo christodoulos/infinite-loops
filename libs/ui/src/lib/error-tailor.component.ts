@@ -14,10 +14,9 @@ export function anchorErrorComponent(
   hostElement: Element,
   errorElement: Element
 ) {
-  console.log('IN anchorErrorComponent');
   hostElement.parentElement.insertAdjacentElement('afterend', errorElement);
   return () => {
-    let errorNode = hostElement.parentElement.querySelector('skata');
+    let errorNode = hostElement.parentElement.querySelector('custom-error');
     if (errorNode) {
       errorNode.remove();
     }
