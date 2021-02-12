@@ -3,6 +3,6 @@ export * from './lib/auth.guard';
 export * from './lib/auth.service';
 
 export interface Credentials {
-  username: string;
+  email: string;
   password: string;
 }

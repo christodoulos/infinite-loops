@@ -3,41 +3,56 @@
     <faicon [icon]="'faSignInAlt'" class="mr-2"></faicon>Sign In
   </h1>
 
-  <div>
-    <div>
-      <label
-        for="email_address"
-        class="block w-full text-sm font-medium text-gray-700"
-      >
-        Email address:</label
-      >
-      <input
-        #userEmail
-        required
-        type="text"
-        name="email_address"
-        id="email_address"
-        autocomplete="email"
-        class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-      />
-    </div>
+  <form [formGroup]="loginForm" errorTailor>
+    <div class="space-y-2">
+      <div>
+        <fa-input
+          [required]="true"
+          [icon]="'faEnvelope'"
+          [label]="'Email address'"
+          formControlName="email"
+        ></fa-input>
+        <!-- <label
+          for="email_address"
+          class="block w-full text-sm font-medium text-gray-700"
+        >
+          Email address:</label
+        >
+        <input
+          #userEmail
+          required
+          type="text"
+          name="email_address"
+          id="email_address"
+          autocomplete="email"
+          class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        /> -->
+      </div>
 
-    <div>
-      <label
-        for="password"
-        class="mt-2 block w-full text-sm font-medium text-gray-700"
-        >Password:</label
-      >
-      <input
-        #userPassword
-        required
-        type="password"
-        name="password"
-        id="password"
-        class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-      />
+      <div>
+        <fa-input
+          [type]="'password'"
+          [required]="true"
+          [icon]="'faKey'"
+          [label]="'Password'"
+          formControlName="password"
+        ></fa-input>
+        <!-- <label
+          for="password"
+          class="mt-2 block w-full text-sm font-medium text-gray-700"
+          >Password:</label
+        >
+        <input
+          #userPassword
+          required
+          type="password"
+          name="password"
+          id="password"
+          class="mt-1 p-2 w-full rounded border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        /> -->
+      </div>
     </div>
-  </div>
+  </form>
 
   <div class="flex items-center justify-between">
     <div class="flex items-center">
@@ -63,8 +78,14 @@
   </div>
 
   <div class="flex flex-row items-center space-x-4">
-    <fa-button
+    <!-- <fa-button
       (click)="emitSignIn(userEmail.value, userPassword.value)"
+      [loading$]="loading$"
+      [text]="'Log In'"
+      [icon]="'faSignInAlt'"
+    ></fa-button> -->
+    <fa-button
+      (click)="emitSignIn()"
       [loading$]="loading$"
       [text]="'Log In'"
       [icon]="'faSignInAlt'"

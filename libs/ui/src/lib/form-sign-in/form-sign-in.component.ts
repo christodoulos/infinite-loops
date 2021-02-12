@@ -7,9 +7,11 @@ import {
   Input,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { Validators } from '@angular/forms';
 
 interface Credentials {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -23,15 +25,25 @@ export class FormSignInComponent implements OnInit {
   @Input() loading$: Observable<boolean>;
   @Output() signIn: EventEmitter<Credentials> = new EventEmitter<Credentials>();
   @Output() googleSignIn: EventEmitter<boolean> = new EventEmitter<boolean>();
+  loginForm: FormGroup;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm = new FormGroup<Credentials>({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+    });
+  }
 
   emitGoogleSignIn() {
     this.googleSignIn.emit(true);
   }
 
-  emitSignIn(username: string, password: string) {
-    this.signIn.emit({ username, password });
+  // emitSignIn(email: string, password: string) {
+  //   this.signIn.emit({ email, password });
+  // }
+  emitSignIn() {
+    console.log(this.loginForm.value);
+    this.signIn.emit(<Credentials>this.loginForm.value);
   }
 }

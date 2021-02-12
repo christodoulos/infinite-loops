@@ -32,6 +32,6 @@ export class SignInComponent implements OnInit {
   }
 
   doSignIn(credentials: Credentials) {
-    this.authService.SignIn(credentials.username, credentials.password);
+    this.authService.SignIn(credentials.email, credentials.password);
   }
 }

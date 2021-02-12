@@ -42,6 +42,7 @@ export class AuthService {
 
   // Sign in with email/password
   async SignIn(email: string, password: string) {
+    console.log('AUTH SignIN', email, password);
     this.userService.setUserLoading(true);
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(
