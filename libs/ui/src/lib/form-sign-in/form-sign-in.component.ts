@@ -39,11 +39,7 @@ export class FormSignInComponent implements OnInit {
     this.googleSignIn.emit(true);
   }
 
-  // emitSignIn(email: string, password: string) {
-  //   this.signIn.emit({ email, password });
-  // }
   emitSignIn() {
-    console.log(this.loginForm.value);
     this.signIn.emit(<Credentials>this.loginForm.value);
   }
 }

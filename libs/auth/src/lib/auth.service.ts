@@ -32,11 +32,7 @@ export class AuthService {
       // it should be merged with firebase collection
       if (user) {
         console.log('LOGGED IN');
-        console.log('IN CONSTRUCTOR:', user);
-        // this.mergeUserObjects(user);
-        const { uid, email, displayName, photoURL, emailVerified } = {
-          ...user,
-        };
+        const { uid, email, displayName, photoURL, emailVerified } = user;
         const data = { uid, email, displayName, photoURL, emailVerified };
         this.userService.updateUser(data);
         this.user = data;
@@ -44,15 +40,6 @@ export class AuthService {
         console.log('LOGGED OUT');
       }
     });
-  }
-
-  mergeUserObjects(userFromAuth: any) {
-    this.afs
-      .collection('users', (ref) => ref.where('uid', '==', userFromAuth.uid))
-      .get()
-      .subscribe((value) => {
-        console.log(value);
-      });
   }
 
   // Sign in with email/password
@@ -69,18 +56,7 @@ export class AuthService {
           'You should verify your email first! Check your mailbox: ' +
             result.user.email
         );
-      console.log('BBBBBBBBBBBB', result.user);
-      const lalakis = {
-        uid: result.user.uid,
-        email: result.user.email,
-        firstName: '',
-        lastName: '',
-        linkedinURL: '',
-        photoURL: result.user.photoURL,
-        displayName: result.user.displayName,
-        emailVerified: result.user.emailVerified,
-      };
-      this.updateUserData(lalakis);
+      this.updateUserData(result.user);
     } catch (error) {
       this.userService.setUserLoading(false);
       this.alertService.error(error.message, { autoclose: true });
@@ -94,6 +70,7 @@ export class AuthService {
     // user as received from signup form
     this.userService.setUserLoading(true);
     try {
+      //https://bit.ly/3tVkME2 by Sterling Archer
       await this.afAuth
         .createUserWithEmailAndPassword(user.email, user.password)
         .then((userData) => {
@@ -167,26 +144,8 @@ export class AuthService {
     return userRef.set(userData, { merge: true });
   }
 
-  private updateUserData({
-    uid,
-    firstName,
-    lastName,
-    email,
-    displayName,
-    photoURL,
-    linkedinURL,
-    emailVerified,
-  }) {
-    const data = {
-      uid,
-      firstName,
-      lastName,
-      email,
-      displayName,
-      photoURL,
-      linkedinURL,
-      emailVerified,
-    };
+  private updateUserData({ uid, email, displayName, photoURL, emailVerified }) {
+    const data = { uid, email, displayName, photoURL, emailVerified };
     this.userService.updateUser({ ...data });
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${uid}`
