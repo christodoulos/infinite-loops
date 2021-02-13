@@ -64,7 +64,10 @@ export class FormSignUpComponent implements OnInit {
         email: new FormControl('', [Validators.required, Validators.email]),
         photoURL: new FormControl(''),
         linkedinURL: new FormControl(''),
-        password: new FormControl('', [Validators.required]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
         confirmPassword: new FormControl('', Validators.required),
       },
       { validators: [MustMatch('password', 'confirmPassword')] }

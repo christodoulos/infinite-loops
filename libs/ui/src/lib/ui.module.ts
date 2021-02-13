@@ -34,7 +34,7 @@ import { FaInputComponent } from './fa-input/fa-input.component';
           mustMatch: 'Does not match',
           email: 'This is not an email',
           minlength: ({ requiredLength, actualLength }) =>
-            `Expect ${requiredLength} but got ${actualLength}`,
+            `Expected length of ${requiredLength} but got ${actualLength}`,
           invalidAddress: (error) => `Address isn't valid`,
         },
       },

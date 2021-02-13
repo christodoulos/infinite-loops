@@ -18,6 +18,7 @@ export class UserService {
   }
 
   updateUser(user: Partial<User>) {
+    console.log('USER SERVICE', user);
     this.userStore.update({ ...user, loading: false });
   }
 

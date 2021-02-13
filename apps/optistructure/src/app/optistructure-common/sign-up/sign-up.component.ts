@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, AuthService, UserQuery } from '@infinite-loops/auth';
 import { AlertService } from '@infinite-loops/notifications';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'infinite-loops-sign-up',
@@ -12,7 +13,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userQuery: UserQuery,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -23,9 +25,9 @@ export class SignUpComponent implements OnInit {
         autoclose: true,
       });
     } else {
-      console.log(user);
       this.authService.SignUp(user);
       // this.authService.SignUp(credentials.username, credentials.password);
+      // this.router.navigate(['sign-in']);
     }
   }
 }
