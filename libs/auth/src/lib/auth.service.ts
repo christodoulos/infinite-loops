@@ -12,11 +12,13 @@ import { UserService } from './state/user.service';
 import { Router } from '@angular/router';
 
 import { AlertService } from '@infinite-loops/notifications';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  subscription: Subscription;
   user: User;
   constructor(
     private router: Router,
@@ -26,25 +28,49 @@ export class AuthService {
     private alertService: AlertService
   ) {
     console.log('IN AUTH SERVICE');
-    // this.signOut();
     this.afAuth.authState.subscribe((user) => {
-      // user is authState user
-      // it should be merged with firebase collection
       if (user) {
-        console.log('LOGGED IN');
-        const { uid, email, displayName, photoURL, emailVerified } = user;
-        const data = { uid, email, displayName, photoURL, emailVerified };
-        this.userService.updateUser(data);
-        this.user = data;
+        console.log(`\t${user.email} is LOGGED IN`);
+
+        // subscribes to local user information to merge with auth user
+        // should unsubscribe before logout
+        this.subscription = this.afs
+          .collection('/users/')
+          .doc(user.uid)
+          .valueChanges()
+          .subscribe((luser: User) => {
+            const {
+              uid,
+              email,
+              firstName,
+              lastName,
+              displayName,
+              linkedinURL,
+              photoURL,
+              emailVerified,
+            } = { ...user, ...luser };
+            const data = {
+              uid,
+              email,
+              firstName,
+              lastName,
+              displayName,
+              linkedinURL,
+              photoURL,
+              emailVerified,
+            };
+            this.userService.updateUser(data);
+            this.user = data;
+            console.log(luser);
+          });
       } else {
-        console.log('LOGGED OUT');
+        console.log('\tLOGGED OUT');
       }
     });
   }
 
   // Sign in with email/password
   async SignIn(email: string, password: string) {
-    console.log('AUTH SignIN', email, password);
     this.userService.setUserLoading(true);
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(
@@ -64,13 +90,13 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  // async SignUp(email: string, password: string) {
   async SignUp(user: any) {
     console.log('SIGNUP', user);
-    // user as received from signup form
+    // user as received from signup form, should support at least
+    // .firstName, .lastName, .email and .password
     this.userService.setUserLoading(true);
     try {
-      //https://bit.ly/3tVkME2 by Sterling Archer
+      // https://bit.ly/3tVkME2 by Sterling Archer
       await this.afAuth
         .createUserWithEmailAndPassword(user.email, user.password)
         .then((userData) => {
@@ -121,6 +147,7 @@ export class AuthService {
   }
 
   async signOut() {
+    this.subscription.unsubscribe();
     await this.afAuth.signOut();
     resetStores();
     this.router.navigate(['']);

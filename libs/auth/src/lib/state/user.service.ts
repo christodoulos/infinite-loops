@@ -4,9 +4,7 @@ import { User, createInitialUser } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private userStore: UserStore) {
-    console.log('AUTH STATE - USER SERVICE');
-  }
+  constructor(private userStore: UserStore) {}
 
   setUserFromLocalStorage() {
     const user = localStorage.getItem('user');

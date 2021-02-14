@@ -22,16 +22,24 @@
     <div class="ml-2 px-2 text-sm">
       <table class="table">
         <tr>
-          <td class="font-semibold">Fullname:</td>
-          <td>{{ user.displayName }}</td>
+          <td class="font-semibold">Fullname</td>
+          <td class="pl-2">{{ user.displayName }}</td>
         </tr>
         <tr>
-          <td class="font-semibold">Email:</td>
-          <td>{{ user.email }}</td>
+          <td class="font-semibold">Email</td>
+          <td class="pl-2">{{ user.email }}</td>
+        </tr>
+        <tr *ngIf="user.linkedinURL">
+          <td class="font-semibold">LinkedIn</td>
+          <td class="pl-2">
+            <a class="text-indigo-400" href="{{ user.linkedinURL }}">{{
+              user.linkedinURL
+            }}</a>
+          </td>
         </tr>
         <tr>
-          <td class="font-semibold">User ID:</td>
-          <td>{{ user.uid }}</td>
+          <td class="font-semibold">User ID</td>
+          <td class="pl-2">{{ user.uid }}</td>
         </tr>
         <!-- <tr>
           <td class="font-semibold">Last Login:</td>
