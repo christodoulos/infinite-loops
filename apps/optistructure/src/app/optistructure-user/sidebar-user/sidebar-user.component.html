@@ -5,6 +5,11 @@
     [icon]="'faUser'"
   ></fa-list-item>
   <fa-list-item
+    routerLink="/user/upload-model"
+    [text]="'Upload Model'"
+    [icon]="'faCloudUploadAlt'"
+  ></fa-list-item>
+  <fa-list-item
     (click)="authService.signOut()"
     [text]="'Logout'"
     [icon]="'faSignOutAlt'"

@@ -61,7 +61,7 @@ export class AuthService {
             };
             this.userService.updateUser(data);
             this.user = data;
-            console.log(luser);
+            // console.log(luser);
           });
       } else {
         console.log('\tLOGGED OUT');
