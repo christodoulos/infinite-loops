@@ -1,17 +1,19 @@
 <div
-  class="dropzone"
+  class="{{
+    isHovering
+      ? 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-solid border-red-800 bg-red-300'
+      : 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-dashed border-red-400'
+  }}"
   dropzone
   (hovered)="toggleHover($event)"
   (dropped)="onDrop($event)"
-  [class.hovering]="isHovering"
 >
-  <h3>AngularFire Drop Zone</h3>
-  <p>Drag and Drop a File</p>
+  <h3>Optistructure Cloud</h3>
+  <p>Drag and Drop your files</p>
 </div>
 
-<h3>Uploads</h3>
+<!-- <h3 *ngIf="files.length > 0">Uploads</h3> -->
 
 <div *ngFor="let file of files">
-  <p>lala</p>
   <upload-task [file]="file"></upload-task>
 </div>

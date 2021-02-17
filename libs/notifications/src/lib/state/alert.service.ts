@@ -28,7 +28,7 @@ export class AlertService {
     this.add({ ...options, type: AlertType.Warning, message });
   }
 
-  update(id, alert: Partial<Alert>) {
+  update(id: string, alert: Partial<Alert>) {
     this.alertStore.update(id, alert);
   }
 

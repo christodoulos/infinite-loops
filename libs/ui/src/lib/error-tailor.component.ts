@@ -14,11 +14,16 @@ export function anchorErrorComponent(
   hostElement: Element,
   errorElement: Element
 ) {
-  hostElement.parentElement.insertAdjacentElement('afterend', errorElement);
-  return () => {
-    let errorNode = hostElement.parentElement.querySelector('custom-error');
-    if (errorNode) {
-      errorNode.remove();
-    }
-  };
+  if (hostElement.parentElement !== null) {
+    const parent = hostElement.parentElement;
+    parent.insertAdjacentElement('afterend', errorElement);
+    return () => {
+      let errorNode = parent.querySelector('custom-error');
+      if (errorNode) {
+        errorNode.remove();
+      }
+    };
+  } else {
+    return () => {};
+  }
 }

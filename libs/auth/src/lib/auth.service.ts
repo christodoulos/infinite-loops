@@ -18,8 +18,8 @@ import { Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  subscription: Subscription;
-  user: User;
+  subscription!: Subscription;
+  user!: User;
   constructor(
     private router: Router,
     private userService: UserService,
@@ -38,16 +38,16 @@ export class AuthService {
           .collection('/users/')
           .doc(user.uid)
           .valueChanges()
-          .subscribe((luser: User) => {
+          .subscribe((luser: any) => {
             const {
-              uid,
-              email,
-              firstName,
-              lastName,
-              displayName,
-              linkedinURL,
-              photoURL,
-              emailVerified,
+              uid = '',
+              email = '',
+              firstName = '',
+              lastName = '',
+              displayName = '',
+              linkedinURL = '',
+              photoURL = '',
+              emailVerified = false,
             } = { ...user, ...luser };
             const data = {
               uid,
@@ -77,12 +77,14 @@ export class AuthService {
         email,
         password
       );
-      if (!result.user.emailVerified)
-        this.alertService.error(
-          'You should verify your email first! Check your mailbox: ' +
-            result.user.email
-        );
-      this.updateUserData(result.user);
+      if (result.user) {
+        if (!result.user.emailVerified)
+          this.alertService.error(
+            'You should verify your email first! Check your mailbox: ' +
+              result.user.email
+          );
+        this.updateUserData(result.user);
+      }
     } catch (error) {
       this.userService.setUserLoading(false);
       this.alertService.error(error.message, { autoclose: true });
@@ -100,19 +102,21 @@ export class AuthService {
       await this.afAuth
         .createUserWithEmailAndPassword(user.email, user.password)
         .then((userData) => {
-          userData.user
-            .updateProfile({
-              displayName: `${user.firstName} ${user.lastName}`,
-            })
-            .then(() => {
-              userData.user.sendEmailVerification().then(() => {
-                this.alertService.success(
-                  `We have sent a confirmation email to ${user.email}. 
+          if (userData.user)
+            userData.user
+              .updateProfile({
+                displayName: `${user.firstName} ${user.lastName}`,
+              })
+              .then(() => {
+                if (userData.user)
+                  userData.user.sendEmailVerification().then(() => {
+                    this.alertService.success(
+                      `We have sent a confirmation email to ${user.email}. 
                   Please check your email and click on the link to verify your email address.`
-                );
+                    );
+                  });
+                this.onSignUpUpdateUserData({ ...userData.user, ...user });
               });
-              this.onSignUpUpdateUserData({ ...userData.user, ...user });
-            });
         });
     } catch (error) {
       this.alertService.error(error.message, { autoclose: true });
@@ -121,11 +125,11 @@ export class AuthService {
   }
 
   // Send email verfificaiton when new user sign up
-  async SendVerificationMail() {
-    (await this.afAuth.currentUser).sendEmailVerification().then(() => {
-      this.router.navigate(['verify-email']);
-    });
-  }
+  // async SendVerificationMail() {
+  //   (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+  //     this.router.navigate(['verify-email']);
+  //   });
+  // }
 
   // Forgot password
   async ForgotPassword(passwordResetEmail: string) {
@@ -171,19 +175,26 @@ export class AuthService {
     return userRef.set(userData, { merge: true });
   }
 
-  private updateUserData({ uid, email, displayName, photoURL, emailVerified }) {
-    const data = { uid, email, displayName, photoURL, emailVerified };
+  // private updateUserData({ uid, email, displayName, photoURL, emailVerified }) {
+  private updateUserData(user: firebase.User) {
+    const data = {
+      uid: user.uid || '',
+      email: user.email || '',
+      displayName: user.displayName || '',
+      photoURL: user.photoURL || '',
+      emailVerified: user.emailVerified || false,
+    };
     this.userService.updateUser({ ...data });
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${uid}`
+      `users/${user.uid}`
     );
     return userRef.set(data, { merge: true });
   }
 
   get isLoggedIn(): boolean {
-    const ls = JSON.parse(localStorage.getItem('AkitaStores'));
+    const ls = localStorage.getItem('AkitaStores');
     if (ls) {
-      const user = ls.user;
+      const user = JSON.parse(ls).user;
       if (user !== undefined)
         return user !== null && user.emailVerified !== false ? true : false;
     }

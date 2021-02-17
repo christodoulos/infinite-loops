@@ -11,7 +11,7 @@ import {
 } from './error-tailor.component';
 
 import { MyFaIconComponent } from './fa-icon/fa-icon.component';
-import { FaListItemComponent } from './fa-list-item/fa-list-item.component copy';
+import { FaListItemComponent } from './fa-list-item/fa-list-item.component';
 import { FaButtonComponent } from './fa-button/fa-button.component';
 import { FormSignInComponent } from './form-sign-in/form-sign-in.component';
 import { FormForgotPasswordComponent } from './form-forgot-password/form-forgot-password.component';

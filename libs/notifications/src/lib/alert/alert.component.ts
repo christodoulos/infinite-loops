@@ -28,9 +28,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     private router: Router,
     private alertQuery: AlertQuery,
     private alertService: AlertService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.alertSubscription = this.alertQuery.selectAll().subscribe((alerts) => {
       alerts.forEach((alert) => {
         if (alert.autoclose) {
@@ -47,6 +45,8 @@ export class AlertComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.alertSubscription.unsubscribe();

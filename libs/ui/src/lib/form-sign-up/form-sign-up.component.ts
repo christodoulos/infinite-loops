@@ -5,9 +5,9 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { Validators } from '@angular/forms';
 
@@ -21,26 +21,6 @@ interface Profile {
   confirmPassword: string;
 }
 
-// custom validator to check that two fields match https://bit.ly/3d506n3
-export function MustMatch(controlName: string, matchingControlName: string) {
-  return (formGroup: FormGroup) => {
-    const control = formGroup.controls[controlName];
-    const matchingControl = formGroup.controls[matchingControlName];
-
-    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-      // return if another validator has already found an error on the matchingControl
-      return;
-    }
-
-    // set error on matchingControl if validation fails
-    if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({ mustMatch: true });
-    } else {
-      matchingControl.setErrors(null);
-    }
-  };
-}
-
 @Component({
   selector: 'form-sign-up',
   templateUrl: './form-sign-up.component.html',
@@ -48,31 +28,43 @@ export function MustMatch(controlName: string, matchingControlName: string) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSignUpComponent implements OnInit {
-  @ViewChild('signupform') submitFormElement;
-  @Input() loading$: Observable<boolean>;
-  @Output() signUp: EventEmitter<Partial<Profile> | boolean> = new EventEmitter<
+  @Input() loading$: Observable<boolean> = of(false);
+  @Output()
+  signUp: EventEmitter<Partial<Profile> | boolean> = new EventEmitter<
     Partial<Profile> | boolean
   >();
   profileForm: FormGroup;
-  constructor() {}
+  constructor() {
+    this.profileForm = new FormGroup<Profile>({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      photoURL: new FormControl(''),
+      linkedinURL: new FormControl(''),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    });
 
-  ngOnInit(): void {
-    this.profileForm = new FormGroup<Profile>(
-      {
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        photoURL: new FormControl(''),
-        linkedinURL: new FormControl(''),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-        confirmPassword: new FormControl('', Validators.required),
-      },
-      { validators: [MustMatch('password', 'confirmPassword')] }
+    const passwordValidator = combineLatest([
+      this.profileForm.select((state) => state.password),
+      this.profileForm.select((state) => state.confirmPassword),
+    ]).pipe(
+      map(([password, confirmPassword]) => {
+        if (password !== confirmPassword)
+          this.profileForm
+            .getControl('confirmPassword')
+            .setErrors({ mustMatch: true });
+        return password === confirmPassword ? null : { mustMatch: true };
+      })
     );
+
+    this.profileForm.validateOn(passwordValidator);
   }
+
+  ngOnInit(): void {}
 
   emitSignUp() {
     if (this.profileForm.valid) {

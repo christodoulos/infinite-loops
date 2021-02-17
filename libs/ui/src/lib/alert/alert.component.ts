@@ -21,8 +21,8 @@ enum AlertType {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent implements OnInit {
-  @Input() message: string;
-  @Input() type: AlertType;
+  @Input() message: string = '';
+  @Input() type: AlertType = 0;
   @Output() dismiss: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor() {}
 

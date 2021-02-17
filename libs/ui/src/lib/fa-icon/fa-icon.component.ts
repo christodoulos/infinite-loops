@@ -5,10 +5,10 @@ import {
   Input,
 } from '@angular/core';
 import {
-  faUser,
-  faUserPlus,
   faSignInAlt,
   faBuilding,
+  faUser,
+  faUserPlus,
   faUnlock,
   faEnvelope,
   faCloudUploadAlt,
@@ -27,7 +27,7 @@ import {
   faFacebook,
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'faicon',
@@ -36,8 +36,8 @@ import { Observable } from 'rxjs';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyFaIconComponent implements OnInit {
-  @Input() loading$: Observable<boolean>;
-  @Input() icon: string;
+  @Input() loading$: Observable<boolean> = of(false);
+  @Input() icon: string = '';
   faSpinner = faSpinner;
   constructor() {}
 

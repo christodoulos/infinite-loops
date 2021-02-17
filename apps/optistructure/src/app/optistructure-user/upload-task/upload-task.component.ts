@@ -4,7 +4,7 @@ import {
   AngularFireUploadTask,
 } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 
 @Component({
@@ -13,11 +13,11 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ['./upload-task.component.css'],
 })
 export class UploadTaskComponent implements OnInit {
-  @Input() file: File;
-  task: AngularFireUploadTask;
-  percentage: Observable<number>;
-  snapshot: Observable<any>;
-  downloadURL: string;
+  @Input() file!: File;
+  task!: AngularFireUploadTask;
+  percentage$: Observable<number | undefined> = of(0);
+  snapshot$: Observable<any> = of();
+  downloadURL: string = '';
 
   constructor(
     private storage: AngularFireStorage,
@@ -39,9 +39,9 @@ export class UploadTaskComponent implements OnInit {
     this.task = this.storage.upload(path, this.file);
 
     // Progress monitoring
-    this.percentage = this.task.percentageChanges();
+    this.percentage$ = this.task.percentageChanges();
 
-    this.snapshot = this.task.snapshotChanges().pipe(
+    this.snapshot$ = this.task.snapshotChanges().pipe(
       tap(console.log),
       // The file's download URL
       finalize(async () => {
@@ -54,10 +54,14 @@ export class UploadTaskComponent implements OnInit {
     );
   }
 
-  isActive(snapshot) {
+  isActive(snapshot: any) {
     return (
       snapshot.state === 'running' &&
       snapshot.bytesTransferred < snapshot.totalBytes
     );
+  }
+
+  dclick() {
+    alert('Delete Upload: Not implemented yet!');
   }
 }

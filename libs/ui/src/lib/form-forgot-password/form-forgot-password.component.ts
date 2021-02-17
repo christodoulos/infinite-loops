@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'form-forgot-password',
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormForgotPasswordComponent implements OnInit {
-  @Input() loading$: Observable<boolean>;
+  @Input() loading$: Observable<boolean> = of(false);
   @Output() resetEmail: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}

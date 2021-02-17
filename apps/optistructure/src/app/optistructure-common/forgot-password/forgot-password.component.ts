@@ -19,6 +19,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   sendResetEmail(email: string) {
     this.authService.ForgotPassword(email);
-    this.router.navigate['log-in'];
+    this.router.navigate(['log-in']);
   }
 }

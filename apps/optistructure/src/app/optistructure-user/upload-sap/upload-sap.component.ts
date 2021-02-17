@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload-sap.component.scss'],
 })
 export class UploadSapComponent implements OnInit {
-  isHovering: boolean;
+  isHovering = false;
 
   files: File[] = [];
   constructor() {}
@@ -19,9 +19,10 @@ export class UploadSapComponent implements OnInit {
   }
 
   onDrop(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      this.files.push(files.item(i));
-    }
+    // for (let i = 0; i < files.length; i++) {
+    //   this.files.push(files.item(i));
+    // }
+    this.files = Array.from(files);
     console.log(files);
   }
 }

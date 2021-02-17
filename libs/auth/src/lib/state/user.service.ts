@@ -6,10 +6,10 @@ import { User, createInitialUser } from './user.model';
 export class UserService {
   constructor(private userStore: UserStore) {}
 
-  setUserFromLocalStorage() {
-    const user = localStorage.getItem('user');
-    this.userStore.update(JSON.parse(user));
-  }
+  // setUserFromLocalStorage() {
+  //   const user = localStorage.getItem('user');
+  //   this.userStore.update(JSON.parse(user));
+  // }
 
   setUserLoading(value: boolean) {
     this.userStore.update({ loading: value });

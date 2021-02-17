@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -10,27 +11,18 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@infinite-loops/ui": [
-        "libs/ui/src/index.ts"
-      ],
-      "@infinite-loops/auth": [
-        "libs/auth/src/index.ts"
-      ],
-      "@infinite-loops/notifications": [
-        "libs/notifications/src/index.ts"
+      "@infinite-loops/ui": ["libs/ui/src/index.ts"],
+      "@infinite-loops/auth": ["libs/auth/src/index.ts"],
+      "@infinite-loops/notifications": ["libs/notifications/src/index.ts"],
+      "@fortawesome/fontawesome-common-types": [
+        "node_modules/@fortawesome/fontawesome-common-types/index"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'fa-list-item',
@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FaListItemComponent implements OnInit {
-  @Input() loading$: Observable<boolean>;
-  @Input() text: string;
-  @Input() icon: string;
+  @Input() loading$: Observable<boolean> = of(false);
+  @Input() text: string = '';
+  @Input() icon: string = '';
   constructor() {}
 
   ngOnInit(): void {}

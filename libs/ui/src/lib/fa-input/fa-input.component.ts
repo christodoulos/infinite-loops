@@ -22,37 +22,45 @@ import { FormControl } from '@ngneat/reactive-forms';
   ],
 })
 export class FaInputComponent implements ControlValueAccessor {
-  @Input() icon: string;
-  @Input() label: string;
+  @Input() icon: string = '';
+  @Input() label: string = '';
   @Input() type = 'text';
   @Input() required = false;
   @ViewChild(FormControlDirective, { static: true })
-  formControlDirective: FormControlDirective;
-  @Input() formControl: FormControl;
-  @Input() formControlName: string;
+  formControlDirective: FormControlDirective | undefined;
+  @Input() formControl!: FormControl;
+  @Input() formControlName: string = '';
 
   constructor(private controlContainer: ControlContainer) {}
 
   get control() {
     return (
       this.formControl ||
-      this.controlContainer.control.get(this.formControlName)
+      this.controlContainer.control?.get(this.formControlName)
     );
   }
 
   registerOnTouched(fn: any): void {
-    this.formControlDirective.valueAccessor.registerOnTouched(fn);
+    if (this.formControlDirective?.valueAccessor) {
+      this.formControlDirective.valueAccessor.registerOnTouched(fn);
+    }
   }
 
   registerOnChange(fn: any): void {
-    this.formControlDirective.valueAccessor.registerOnChange(fn);
+    if (this.formControlDirective?.valueAccessor) {
+      this.formControlDirective.valueAccessor.registerOnChange(fn);
+    }
   }
 
   writeValue(obj: any): void {
-    this.formControlDirective.valueAccessor.writeValue(obj);
+    if (this.formControlDirective?.valueAccessor) {
+      this.formControlDirective.valueAccessor.writeValue(obj);
+    }
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.formControlDirective.valueAccessor.setDisabledState(isDisabled);
-  }
+  // setDisabledState(isDisabled: boolean): void {
+  //   if (this.formControlDirective.valueAccessor !== null) {
+  //     this.formControlDirective.valueAccessor.setDisabledState(isDisabled);
+  //   }
+  // }
 }
