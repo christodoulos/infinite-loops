@@ -1,14 +1,14 @@
 <ng-container *ngIf="snapshot$ | async as snap">
-  <div class="flex flex-row w-80 m-auto mt-2 text-xs align-middle">
+  <div class="flex flex-row mt-1 text-xs align-middle">
     <ng-container *ngIf="percentage$ | async as pct">
       <ng-container *ngIf="pct < 100">
-        <div>{{ file.name }}</div>
+        <div>{{ file?.name }}</div>
         <div class="ml-2"><progress [value]="pct" max="100"></progress></div>
         <div class="ml-2">{{ pct | number }}%</div>
       </ng-container>
       <ng-container *ngIf="pct == 100">
         <div>
-          <a class="text-indigo-500" [href]="downloadURL">{{ file.name }}</a>
+          <a class="text-indigo-500" [href]="downloadURL">{{ file?.name }}</a>
         </div>
         <div class="ml-2">
           ({{ snap.totalBytes / 1024 | number: '1.2-2' }} K)

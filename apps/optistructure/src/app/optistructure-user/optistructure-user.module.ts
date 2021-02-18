@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { UiModule } from '@infinite-loops/ui';
 
@@ -20,6 +21,12 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     DropzoneDirective,
     UploadTaskComponent,
   ],
-  imports: [CommonModule, UiModule, OptistructureUserRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    UiModule,
+    OptistructureUserRoutingModule,
+  ],
+  exports: [UploadTaskComponent],
 })
 export class OptistructureUserModule {}

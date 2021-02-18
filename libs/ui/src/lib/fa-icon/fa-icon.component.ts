@@ -22,6 +22,10 @@ import {
   faHandshake,
   faKey,
   faQuestion,
+  faClipboardCheck,
+  faCogs,
+  faCodeBranch,
+  faSave,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGoogle,
@@ -78,6 +82,14 @@ export class MyFaIconComponent implements OnInit {
         return faLinkedinIn;
       case 'faKey':
         return faKey;
+      case 'faClipboardCheck':
+        return faClipboardCheck;
+      case 'faCogs':
+        return faCogs;
+      case 'faCodeBranch':
+        return faCodeBranch;
+      case 'faSave':
+        return faSave;
       default:
         return faQuestion;
     }

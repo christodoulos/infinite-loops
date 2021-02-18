@@ -30,6 +30,7 @@ import { FaInputComponent } from './fa-input/fa-input.component';
       controlErrorComponent: UIFormsErrorComponent,
       errors: {
         useValue: {
+          requiredTrue: 'You must check this',
           required: 'This field is required',
           mustMatch: 'Does not match',
           email: 'This is not an email',

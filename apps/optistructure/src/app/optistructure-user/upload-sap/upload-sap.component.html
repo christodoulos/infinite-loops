@@ -1,25 +1,94 @@
 <div class="p-5 space-y-8">
   <h1 class="font-bold text-xl text-gray-700">
-    <faicon [icon]="'faCloudUploadAlt'" class="mr-2"></faicon>Upload Model
+    <faicon [icon]="'faCloudUploadAlt'" class="mr-2"></faicon>Upload Case
   </h1>
 
-  <div
-    class="{{
-      isHovering
-        ? 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-solid border-red-800 bg-red-300'
-        : 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-dashed border-red-400'
-    }}"
-    dropzone
-    (hovered)="toggleHover($event)"
-    (dropped)="onDrop($event)"
-  >
-    <h3>Optistructure Cloud</h3>
-    <p>Drag and Drop your files</p>
-  </div>
+  <form [formGroup]="caseForm">
+    <div class="space-y-2">
+      <p>
+        Please fill all the <strong>required<sup>*</sup></strong> fields:
+      </p>
+      <!-- The Case indentifier -->
+      <div>
+        <fa-input
+          [required]="true"
+          [icon]="'faClipboardCheck'"
+          [label]="'Your Case indentifier'"
+          formControlName="caseID"
+        ></fa-input>
+      </div>
+      <!-- The optimization program and version -->
+      <div class="flex flex-row justify-between">
+        <div>
+          <fa-input
+            [required]="true"
+            [icon]="'faCogs'"
+            [label]="'Your optimization software'"
+            formControlName="optProg"
+          ></fa-input>
+        </div>
+        <div>
+          <fa-input
+            [required]="true"
+            [icon]="'faCodeBranch'"
+            [label]="'Version'"
+            formControlName="optProgVersion"
+          ></fa-input>
+        </div>
+      </div>
+      <!-- DropZone and uploaded files -->
+      <div>
+        <input type="hidden" formControlName="caseFiles" />
+        <label class="block text-sm font-medium text-gray-700">
+          Your case files:
+        </label>
+        <div
+          class="{{
+            isHovering
+              ? 'flex flex-col mt-2 items-center p-1 border-2 border-solid border-red-800 bg-red-300'
+              : 'flex flex-col mt-2 items-center p-1 border-2 border-dashed border-red-400'
+          }}"
+          dropzone
+          (hovered)="toggleHover($event)"
+          (dropped)="onDrop($event)"
+        >
+          <h3>Optistructure Cloud</h3>
+          <p>Drag and Drop your files</p>
+        </div>
+        <div *ngFor="let file of files">
+          <upload-task [file]="file" (fID)="receive($event)"></upload-task>
+        </div>
+      </div>
+      <!-- Legal Confirmations -->
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          formControlName="readInfos"
+        />
+        <label class="ml-2 block text-sm text-gray-900">
+          Read and provided all required info
+        </label>
+      </div>
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          formControlName="holdIP"
+        />
+        <label class="ml-2 block text-sm text-gray-900">
+          Confirm that you hold the IP right for the uploads
+        </label>
+      </div>
 
-  <!-- <h3 *ngIf="files.length > 0">Uploads</h3> -->
-
-  <div *ngFor="let file of files">
-    <upload-task [file]="file"></upload-task>
-  </div>
+      <div>
+        <fa-button
+          [disabled]="caseForm.invalid"
+          (click)="caseForm.valid && submit()"
+          [text]="'Submit'"
+          [icon]="'faSave'"
+        ></fa-button>
+      </div>
+    </div>
+  </form>
 </div>
