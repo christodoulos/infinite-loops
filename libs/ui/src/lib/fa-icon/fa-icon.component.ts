@@ -21,6 +21,7 @@ import {
   faTimes,
   faHandshake,
   faKey,
+  faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGoogle,
@@ -36,7 +37,7 @@ import { Observable, of } from 'rxjs';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyFaIconComponent implements OnInit {
-  @Input() loading$: Observable<boolean> = of(false);
+  @Input() loading$: Observable<boolean | undefined> = of(false);
   @Input() icon: string = '';
   faSpinner = faSpinner;
   constructor() {}
@@ -78,7 +79,7 @@ export class MyFaIconComponent implements OnInit {
       case 'faKey':
         return faKey;
       default:
-        break;
+        return faQuestion;
     }
   }
 }

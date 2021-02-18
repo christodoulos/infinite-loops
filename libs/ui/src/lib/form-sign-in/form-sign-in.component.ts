@@ -22,7 +22,7 @@ interface Credentials {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSignInComponent implements OnInit {
-  @Input() loading$: Observable<boolean> = of(false);
+  @Input() loading$: Observable<boolean | undefined> = of(false);
   @Output() signIn: EventEmitter<Credentials> = new EventEmitter<Credentials>();
   @Output() googleSignIn: EventEmitter<boolean> = new EventEmitter<boolean>();
   loginForm: FormGroup<Credentials>;

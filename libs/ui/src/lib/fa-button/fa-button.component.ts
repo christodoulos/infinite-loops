@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FaButtonComponent implements OnInit {
-  @Input() loading$: Observable<boolean> = of(false);
+  @Input() loading$: Observable<boolean | undefined> = of(false);
   @Input() disabled: boolean = false;
   @Input() text: string = '';
   @Input() icon: string = '';

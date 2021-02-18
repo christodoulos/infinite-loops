@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormForgotPasswordComponent implements OnInit {
-  @Input() loading$: Observable<boolean> = of(false);
+  @Input() loading$: Observable<boolean | undefined> = of(false);
   @Output() resetEmail: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}

@@ -1,19 +1,25 @@
-<div
-  class="{{
-    isHovering
-      ? 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-solid border-red-800 bg-red-300'
-      : 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-dashed border-red-400'
-  }}"
-  dropzone
-  (hovered)="toggleHover($event)"
-  (dropped)="onDrop($event)"
->
-  <h3>Optistructure Cloud</h3>
-  <p>Drag and Drop your files</p>
-</div>
+<div class="p-5 space-y-8">
+  <h1 class="font-bold text-xl text-gray-700">
+    <faicon [icon]="'faCloudUploadAlt'" class="mr-2"></faicon>Upload Model
+  </h1>
 
-<!-- <h3 *ngIf="files.length > 0">Uploads</h3> -->
+  <div
+    class="{{
+      isHovering
+        ? 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-solid border-red-800 bg-red-300'
+        : 'flex flex-col m-auto mt-2 items-center w-80 p-5 border-2 border-dashed border-red-400'
+    }}"
+    dropzone
+    (hovered)="toggleHover($event)"
+    (dropped)="onDrop($event)"
+  >
+    <h3>Optistructure Cloud</h3>
+    <p>Drag and Drop your files</p>
+  </div>
 
-<div *ngFor="let file of files">
-  <upload-task [file]="file"></upload-task>
+  <!-- <h3 *ngIf="files.length > 0">Uploads</h3> -->
+
+  <div *ngFor="let file of files">
+    <upload-task [file]="file"></upload-task>
+  </div>
 </div>

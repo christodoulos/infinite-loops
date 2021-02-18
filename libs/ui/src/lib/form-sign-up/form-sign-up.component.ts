@@ -28,11 +28,9 @@ interface Profile {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSignUpComponent implements OnInit {
-  @Input() loading$: Observable<boolean> = of(false);
+  @Input() loading$: Observable<boolean | undefined> = of(false);
   @Output()
-  signUp: EventEmitter<Partial<Profile> | boolean> = new EventEmitter<
-    Partial<Profile> | boolean
-  >();
+  signUp: EventEmitter<Partial<Profile>> = new EventEmitter<Partial<Profile>>();
   profileForm: FormGroup;
   constructor() {
     this.profileForm = new FormGroup<Profile>({
@@ -67,10 +65,6 @@ export class FormSignUpComponent implements OnInit {
   ngOnInit(): void {}
 
   emitSignUp() {
-    if (this.profileForm.valid) {
-      this.signUp.emit(this.profileForm.value);
-    } else {
-      this.signUp.emit(false);
-    }
+    this.signUp.emit(this.profileForm.value);
   }
 }
