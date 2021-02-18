@@ -91,4 +91,49 @@
       </div>
     </div>
   </form>
+
+  <div class="text-xs space-y-2">
+    <a name="#info" class="font-semibold">IMPORTANT NOTICE</a>
+    <p>
+      In case that the version of SAP2000 used for developing OM is different to
+      the OptiStructure's one, the client will be asked to translate OM to the
+      OptiStructure's version and provide the latter one.
+    </p>
+    <p>
+      MODEL VERIFICATION: In order to define the basis of comparison
+      OptiStructure provides access to the client to one of it’s PCs (OSPC:
+      OptiStructure’s PC). Before starting working with the original model (OM)
+      to be optimized, the client using OSPC needs to confirm that the OM
+      satisfies all the design checks and that no errors exist in the OM by
+      performing analysis & design (A&D). More specifically, after performing
+      analysis in the OM all the design checks required (depending on the
+      material, i.e. steel, concrete, composite, etc) need to be performed.
+    </p>
+    <h1 class="font-semibold">Design Bounds</h1>
+    <p>
+      The design bounds for all section properties to be optimized (allowed to
+      change) need to be provided. More specifically, for the case of section
+      properties defined by the cross-sectional dimensions lower, upper and step
+      needs to be provided.
+    </p>
+    <h1 class="font-semibold">Connectivity</h1>
+    <p>
+      Any connectivity constraints need to be provided. For example, the width
+      of a beam needs to be equal or less than the width of the shear walls for
+      those beams and shear walls (of specific cross-section) that are
+      connected. It is very crucial that no connectivity restriction is violated
+      at the initial model provided by the client and verified in the OSPC
+    </p>
+    <h1 class="font-semibold">Additional (external) design checks</h1>
+    <p>
+      All extra (external to the structural analysis/design software)
+      constraints that are needed (in addition to those performed by the
+      structural analysis/design software used by the client, e.g. the designs
+      checks of ETABS), like modal mass constraint, drift or lateral
+      displacement limits, needs to be provided. Detailed description on how the
+      additional design checks are performed needs to be provided as well (e.g.
+      the excel sheets that are used by the design engineer of the OM to perform
+      these extra/additional checks)
+    </p>
+  </div>
 </div>
