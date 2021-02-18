@@ -10,6 +10,11 @@
     [icon]="'faCloudUploadAlt'"
   ></fa-list-item>
   <fa-list-item
+    routerLink="/user/case-explorer"
+    [text]="'My Cases'"
+    [icon]="'faFileArchive'"
+  ></fa-list-item>
+  <fa-list-item
     (click)="authService.signOut()"
     [text]="'Logout'"
     [icon]="'faSignOutAlt'"

@@ -4,7 +4,6 @@ import { Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserQuery } from '@infinite-loops/auth';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
-import { ClassField } from '@angular/compiler';
 import { AlertService } from '@infinite-loops/notifications';
 import { Router } from '@angular/router';
 

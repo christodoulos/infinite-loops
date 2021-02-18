@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 import { TopbarUserComponent } from './topbar-user/topbar-user.component';
 import { UploadSapComponent } from './upload-sap/upload-sap.component';
+import { CaseExplorerComponent } from './case-explorer/case-explorer.component';
 
 const routes: Routes = [
   { path: '', component: TopbarUserComponent, outlet: 'topbar' },
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'upload-model',
     component: UploadSapComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'case-explorer',
+    component: CaseExplorerComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '/user/profile' },

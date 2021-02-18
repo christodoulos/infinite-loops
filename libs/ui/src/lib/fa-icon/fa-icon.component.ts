@@ -26,6 +26,7 @@ import {
   faCogs,
   faCodeBranch,
   faSave,
+  faFileArchive,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGoogle,
@@ -90,6 +91,8 @@ export class MyFaIconComponent implements OnInit {
         return faCodeBranch;
       case 'faSave':
         return faSave;
+      case 'faFileArchive':
+        return faFileArchive;
       default:
         return faQuestion;
     }

@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UploadSapComponent } from './upload-sap/upload-sap.component';
 import { DropzoneDirective } from './upload-sap/dropzone.directive';
 import { UploadTaskComponent } from './upload-task/upload-task.component';
+import { CaseExplorerComponent } from './case-explorer/case-explorer.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     UploadSapComponent,
     DropzoneDirective,
     UploadTaskComponent,
+    CaseExplorerComponent,
   ],
   imports: [
     CommonModule,
