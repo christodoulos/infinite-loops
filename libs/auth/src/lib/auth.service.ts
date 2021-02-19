@@ -151,10 +151,10 @@ export class AuthService {
   }
 
   async signOut() {
-    this.subscription.unsubscribe();
     await this.afAuth.signOut();
     resetStores();
     this.router.navigate(['']);
+    this.subscription.unsubscribe();
   }
 
   private onSignUpUpdateUserData(user: any) {

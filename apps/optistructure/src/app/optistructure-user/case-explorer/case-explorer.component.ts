@@ -71,16 +71,19 @@ export class CaseExplorerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.uid$.subscribe((uid) => {
       this.uid = uid;
-      this.casesCollection = this.afs.collection(`/users/${uid}/cases`);
-      this.cases$ = this.casesCollection.snapshotChanges().pipe(
-        map((actions) =>
-          actions.map((a) => {
-            const data = a.payload.doc.data() as OptCase;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        )
-      );
+      // this.uid becomes null when user logs out
+      if (this.uid) {
+        this.casesCollection = this.afs.collection(`/users/${uid}/cases`);
+        this.cases$ = this.casesCollection.snapshotChanges().pipe(
+          map((actions) =>
+            actions.map((a) => {
+              const data = a.payload.doc.data() as OptCase;
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            })
+          )
+        );
+      }
     });
   }
 
