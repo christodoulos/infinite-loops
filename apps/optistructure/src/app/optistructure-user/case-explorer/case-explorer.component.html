@@ -1,1 +1,26 @@
-<p>case-explorer works!</p>
+<div class="p-5">
+  <h1 class="font-bold text-xl text-gray-700">
+    <faicon [icon]="'faFileArchive'" class="mr-2"></faicon>My Cases
+  </h1>
+
+  <div class="mt-8 text-sm">
+    <ng-container *ngFor="let case of cases$ | async">
+      <div class="flex flex-col mb-2">
+        <div>
+          Case ID: <strong>{{ case.id }}</strong>
+        </div>
+        <div class="flex flex-row">
+          <div>
+            Optimization Software: <strong>{{ case.optProg }}</strong>
+          </div>
+          <div class="ml-2">
+            Version: <strong>{{ case.optProgVersion }}</strong>
+          </div>
+        </div>
+        <div *ngFor="let fileID of cases(case.caseFiles)" class="text-xs">
+          <file-upload [file]="fileID"></file-upload>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

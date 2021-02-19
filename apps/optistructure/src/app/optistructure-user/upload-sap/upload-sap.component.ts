@@ -74,7 +74,7 @@ export class UploadSapComponent implements OnInit {
       .then((result) => {
         this.alertService.success(`Thanks for submitting you case. 
       Your case unique id is ${result.id}`);
-        this.router.navigate(['']);
+        this.router.navigate(['user', 'case-explorer']);
       });
   }
 }
