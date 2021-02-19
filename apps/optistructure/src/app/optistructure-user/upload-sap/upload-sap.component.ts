@@ -1,11 +1,12 @@
 // https://bit.ly/3u1qO62
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserQuery } from '@infinite-loops/auth';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { AlertService } from '@infinite-loops/notifications';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface OptCase {
   caseID: string;
@@ -21,13 +22,15 @@ interface OptCase {
   templateUrl: './upload-sap.component.html',
   styleUrls: ['./upload-sap.component.scss'],
 })
-export class UploadSapComponent implements OnInit {
+export class UploadSapComponent implements OnInit, OnDestroy {
+  subscription!: Subscription;
   isHovering = false;
   caseForm: FormGroup;
   files: File[] = [];
   uploads: Array<string> = [];
 
-  user = this.userQuery.user;
+  uid$ = this.userQuery.uid$;
+  uid = '';
 
   constructor(
     private router: Router,
@@ -45,7 +48,15 @@ export class UploadSapComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.uid$.subscribe((uid) => {
+      this.uid = uid;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   toggleHover(event: boolean) {
     this.isHovering = event;
@@ -69,7 +80,7 @@ export class UploadSapComponent implements OnInit {
     const caseFiles = this.caseForm.value.caseFiles;
 
     this.db
-      .collection(`/users/${this.user.uid}/cases`)
+      .collection(`/users/${this.uid}/cases`)
       .add({ caseID, optProg, optProgVersion, caseFiles })
       .then((result) => {
         this.alertService.success(`Thanks for submitting you case. 

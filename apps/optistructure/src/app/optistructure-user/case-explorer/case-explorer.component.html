@@ -18,7 +18,7 @@
           </div>
         </div>
         <div *ngFor="let fileID of cases(case.caseFiles)" class="text-xs">
-          <file-upload [file]="fileID"></file-upload>
+          <file-upload [uid]="uid" [file]="fileID"></file-upload>
         </div>
       </div>
     </ng-container>

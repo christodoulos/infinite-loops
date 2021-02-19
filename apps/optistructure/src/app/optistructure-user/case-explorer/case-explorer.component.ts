@@ -1,8 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 
 import { UserQuery } from '@infinite-loops/auth';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 export interface OptCase {
@@ -35,14 +38,14 @@ export interface Upload {
 })
 export class FileUpload implements OnInit {
   @Input() file: string | undefined;
+  @Input() uid: string | undefined;
   data$: Observable<Upload | undefined> | undefined;
-  user = this.userQuery.user;
 
   constructor(private userQuery: UserQuery, private afs: AngularFirestore) {}
 
   ngOnInit() {
     this.data$ = this.afs
-      .doc<Upload>(`users/${this.user.uid}/uploads/${this.file}`)
+      .doc<Upload>(`users/${this.uid}/uploads/${this.file}`)
       .valueChanges();
   }
 }
@@ -52,27 +55,36 @@ export class FileUpload implements OnInit {
   templateUrl: './case-explorer.component.html',
   styleUrls: ['./case-explorer.component.css'],
 })
-export class CaseExplorerComponent implements OnInit {
+export class CaseExplorerComponent implements OnInit, OnDestroy {
   // Following documentation in https://bit.ly/3autqSs
-  user = this.userQuery.user;
-  casesCollection = this.afs.collection(`/users/${this.user.uid}/cases`);
-  filesCollection = this.afs.collection(`/users/${this.user.uid}/uploads`);
-  cases$: Observable<OptCaseId[]>;
-  constructor(private userQuery: UserQuery, private afs: AngularFirestore) {
-    this.cases$ = this.casesCollection.snapshotChanges().pipe(
-      map((actions) =>
-        actions.map((a) => {
-          const data = a.payload.doc.data() as OptCase;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-  }
+  subscription!: Subscription;
+  uid$ = this.userQuery.uid$;
+  uid = '';
+  casesCollection: AngularFirestoreCollection<unknown> | undefined;
+  cases$: Observable<OptCaseId[]> | undefined;
+  constructor(private userQuery: UserQuery, private afs: AngularFirestore) {}
 
   cases(casesStr: string) {
     return casesStr.split(',');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.uid$.subscribe((uid) => {
+      this.uid = uid;
+      this.casesCollection = this.afs.collection(`/users/${uid}/cases`);
+      this.cases$ = this.casesCollection.snapshotChanges().pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as OptCase;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

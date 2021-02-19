@@ -25,13 +25,12 @@ export interface fileDesc {
 })
 export class UploadTaskComponent implements OnInit {
   @Input() file: File | undefined;
+  @Input() uid: string | undefined;
   @Output() fID: EventEmitter<string> = new EventEmitter<string>();
   task!: AngularFireUploadTask;
   percentage$: Observable<number | undefined> = of(0);
   snapshot$: Observable<any> = of();
   downloadURL: string = '';
-
-  user = this.userQuery.user;
 
   constructor(
     private userQuery: UserQuery,
@@ -70,7 +69,7 @@ export class UploadTaskComponent implements OnInit {
           const url = this.downloadURL;
 
           this.db
-            .collection(`/users/${this.user.uid}/uploads`)
+            .collection(`/users/${this.uid}/uploads`)
             .add({ name, size, type, lastModified, url, path })
             .then((result) => {
               this.fID.emit(result.id);
