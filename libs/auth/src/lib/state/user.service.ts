@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UserStore } from './user.store';
 import { User, createInitialUser } from './user.model';
+import { Observable } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -15,7 +17,7 @@ export class UserService {
     this.userStore.update({ loading: value });
   }
 
-  updateUser(user: Partial<User>) {
+  updateUser(user: User) {
     this.userStore.update({ ...user, loading: false });
   }
 

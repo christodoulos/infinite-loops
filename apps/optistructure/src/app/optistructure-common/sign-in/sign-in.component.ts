@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Credentials, AuthService, UserQuery } from '@infinite-loops/auth';
+import {
+  Credentials,
+  AuthService,
+  UserQuery,
+  UserService,
+} from '@infinite-loops/auth';
 
 @UntilDestroy()
 @Component({
@@ -11,17 +16,18 @@ import { Credentials, AuthService, UserQuery } from '@infinite-loops/auth';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  loggedIn$ = this.userQuery.loggedIn$;
   loading$ = this.userQuery.loading$;
   constructor(
+    private userService: UserService,
     private authService: AuthService,
     private userQuery: UserQuery,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loggedIn$.pipe(untilDestroyed(this)).subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
+    this.authService.user$.pipe(untilDestroyed(this)).subscribe((user) => {
+      if (user) {
+        this.userService.updateUser(user);
         this.router.navigate(['user', 'profile']);
       }
     });

@@ -12,14 +12,14 @@ import { UserService } from './state/user.service';
 import { Router } from '@angular/router';
 
 import { AlertService } from '@infinite-loops/notifications';
-import { Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  subscription!: Subscription;
-  user!: User;
+  user$: Observable<User | null | undefined>;
   constructor(
     private router: Router,
     private userService: UserService,
@@ -27,46 +27,17 @@ export class AuthService {
     private afs: AngularFirestore,
     private alertService: AlertService
   ) {
-    console.log('IN AUTH SERVICE');
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        console.log(`\t${user.email} is LOGGED IN`);
-
-        // subscribes to local user information to merge with auth user
-        // should unsubscribe before logout
-        this.subscription = this.afs
-          .collection('/users/')
-          .doc(user.uid)
-          .valueChanges()
-          .subscribe((luser: any) => {
-            const {
-              uid = '',
-              email = '',
-              firstName = '',
-              lastName = '',
-              displayName = '',
-              linkedinURL = '',
-              photoURL = '',
-              emailVerified = false,
-            } = { ...user, ...luser };
-            const data = {
-              uid,
-              email,
-              firstName,
-              lastName,
-              displayName,
-              linkedinURL,
-              photoURL,
-              emailVerified,
-            };
-            this.userService.updateUser(data);
-            this.user = data;
-            // console.log(luser);
-          });
-      } else {
-        console.log('\tLOGGED OUT');
-      }
-    });
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap((user) => {
+        // user is Logged in
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          // user is Logged out
+          return of(null);
+        }
+      })
+    );
   }
 
   // Sign in with email/password
@@ -83,12 +54,19 @@ export class AuthService {
             'You should verify your email first! Check your mailbox: ' +
               result.user.email
           );
-        this.updateUserData(result.user);
+        this.userService.setUserLoading(false);
       }
     } catch (error) {
       this.userService.setUserLoading(false);
       this.alertService.error(error.message, { autoclose: true });
     }
+  }
+
+  async googleSignin() {
+    this.userService.setUserLoading(true);
+    const provider = new firebase.auth.GoogleAuthProvider(); // https://bit.ly/3p9dABj
+    await this.afAuth.signInWithPopup(provider);
+    this.userService.setUserLoading(false);
   }
 
   // Sign up with email/password
@@ -124,13 +102,6 @@ export class AuthService {
     this.userService.setUserLoading(false);
   }
 
-  // Send email verfificaiton when new user sign up
-  // async SendVerificationMail() {
-  //   (await this.afAuth.currentUser).sendEmailVerification().then(() => {
-  //     this.router.navigate(['verify-email']);
-  //   });
-  // }
-
   // Forgot password
   async ForgotPassword(passwordResetEmail: string) {
     this.userService.setUserLoading(true);
@@ -143,18 +114,10 @@ export class AuthService {
     this.userService.setUserLoading(false);
   }
 
-  async googleSignin() {
-    this.userService.setUserLoading(true);
-    const provider = new firebase.auth.GoogleAuthProvider(); // https://bit.ly/3p9dABj
-    await this.afAuth.signInWithPopup(provider);
-    this.userService.setUserLoading(false);
-  }
-
   async signOut() {
     await this.afAuth.signOut();
     resetStores();
     this.router.navigate(['']);
-    this.subscription.unsubscribe();
   }
 
   private onSignUpUpdateUserData(user: any) {
@@ -171,12 +134,16 @@ export class AuthService {
       emailVerified: user.emailVerified,
     };
     console.log('AUTH Service', userData);
-    this.userService.updateUser(userData);
+    // this.userService.updateUser(userData);
     return userRef.set(userData, { merge: true });
   }
 
-  // private updateUserData({ uid, email, displayName, photoURL, emailVerified }) {
   private updateUserData(user: firebase.User) {
+    // receives a possibly updated user from Firebase Authentication
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    // update user's data
     const data = {
       uid: user.uid || '',
       email: user.email || '',
@@ -184,10 +151,6 @@ export class AuthService {
       photoURL: user.photoURL || '',
       emailVerified: user.emailVerified || false,
     };
-    this.userService.updateUser({ ...data });
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
-    );
     return userRef.set(data, { merge: true });
   }
 
